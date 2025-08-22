@@ -65,7 +65,7 @@ code-insiders --add-mcp '{"name":"Selenium","command":"npx","args":["selenium-we
 
 After installation, the pshivapr Selenium MCP server will be available for use with your GitHub Copilot agent in VS Code.
 
-## Claude Desktop Integration
+## Claude Desktop Integration (also applicable to Windsurf, Warp, Gemini CLI)
 
 Add to your Claude Desktop configuration:
 
@@ -214,7 +214,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.1.6** - Selenium MCP Server
+- **0.1.7** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities

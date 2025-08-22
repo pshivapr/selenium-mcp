@@ -20,7 +20,7 @@ The Selenium MCP Server bridges the gap between AI models and web automation by 
 
 Configure your MCP client to connect to the Selenium server:
 
-## Standard Configuration (applicable to Windsurf, Warp, Gemini CLI etc)
+### Standard Configuration (applicable to Windsurf, Warp, Gemini CLI etc)
 
 ```json
 {
@@ -33,13 +33,13 @@ Configure your MCP client to connect to the Selenium server:
 }
 ```
 
-### Installation in VS Code
+## Installation in VS Code
 
 Update your `mcp.json` in **VS Code** with below configuration
 
 **NOTE**: If you're new to MCP servers, follow this link [Use MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
 
-## Example 'stdio' type connection
+### Example 'stdio' type connection
 
 ```json
 {
@@ -58,7 +58,7 @@ Update your `mcp.json` in **VS Code** with below configuration
 
 ```
 
-## Example 'http' type connection
+### Example 'http' type connection
 
 ```json
 {
@@ -75,20 +75,7 @@ Update your `mcp.json` in **VS Code** with below configuration
 
 After installation, the Selenium MCP server will be available for use with your GitHub Copilot agent in VS Code.
 
-Alternately to install the Selenium MCP server in VS Code you can use one of these buttons:
-
-<!--
-// Generate using?:
-const config = JSON.stringify({ name: 'Selenium', command: 'npx', args: ["-y", "selenium-webdriver-mcp"] });
-const urlForWebsites = `vscode:mcp/install?${encodeURIComponent(config)}`;
-// Github markdown does not allow linking to `vscode:` directly, so you can use our redirect:
-const urlForGithub = `https://insiders.vscode.dev/redirect?url=${encodeURIComponent(urlForWebsites)}`;
--->
-
-[<img src="https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20Server&color=0098FF" alt="Install in VS Code">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522Selenium%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522%2540selenium-webdriver-mcp%2522%255D%257D)
-[<img alt="Install in VS Code Insiders" src="https://img.shields.io/badge/VS_Code_Insiders-VS_Code_Insiders?style=flat-square&label=Install%20Server&color=24bfa5">](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522Selenium%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522%2540selenium-webdriver-mcp%2522%255D%257D)
-
-To install the Selenium MCP server using the VS Code CLI:
+### To install the Selenium MCP server using the VS Code CLI
 
 ```bash
 # For VS Code

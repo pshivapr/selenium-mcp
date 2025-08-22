@@ -14,6 +14,72 @@ The Selenium MCP Server bridges the gap between AI models and web automation by 
 - **Wait Strategies**: Intelligent waiting for elements and page states
 - **Type Safety**: Full TypeScript implementation with Zod validation
 
+## 🤝 Integration
+
+### MCP Client Integration
+
+Configure your MCP client to connect to the Selenium server:
+
+You can install the package using either npm, or Smithery
+
+Using npm:
+
+```bash
+npm install -g @pshivapr/selenium-mcp
+```
+
+Using Smithery
+
+To install Selenium MCP for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@pshivapr/selenium-mcp):
+
+```bash
+npx @smithery/cli install @pshivapr/selenium-mcp --client claude
+```
+
+#### Installation in VS Code
+
+Install the Selenium MCP server in VS Code using one of these buttons:
+
+<!--
+// Generate using?:
+const config = JSON.stringify({ name: 'Selenium', command: 'npx', args: ["-y", "@pshivapr/selenium-mcp"] });
+const urlForWebsites = `vscode:mcp/install?${encodeURIComponent(config)}`;
+// Github markdown does not allow linking to `vscode:` directly, so you can use our redirect:
+const urlForGithub = `https://insiders.vscode.dev/redirect?url=${encodeURIComponent(urlForWebsites)}`;
+-->
+
+[<img src="https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20Server&color=0098FF" alt="Install in VS Code">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522Selenium%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522%2540pshivapr%252Fselenium-mcp%2522%255D%257D)
+[<img alt="Install in VS Code Insiders" src="https://img.shields.io/badge/VS_Code_Insiders-VS_Code_Insiders?style=flat-square&label=Install%20Server&color=24bfa5">](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522Selenium%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522%2540pshivapr%252Fselenium-mcp%2522%255D%257D)
+
+Alternatively, you can install the Selenium MCP server using the VS Code CLI:
+
+```bash
+# For VS Code
+code --add-mcp '{"name":"Selenium","command":"npx","args":["@pshivapr/selenium-mcp"]}'
+```
+
+```bash
+# For VS Code Insiders
+code-insiders --add-mcp '{"name":"Selenium","command":"npx","args":["@pshivapr/selenium-mcp"]}'
+```
+
+After installation, the pshivapr Selenium MCP server will be available for use with your GitHub Copilot agent in VS Code.
+
+## Claude Desktop Integration
+
+Add to your Claude Desktop configuration:
+
+```json
+{
+  "mcpServers": {
+    "Selenium": {
+      "command": "npx",
+      "args": ["-y", "@pshivapr/selenium-mcp"]
+    }
+  }
+}
+```
+
 ## 🛠️ MCP Available Tools
 
 ### Browser Management Tools
@@ -71,7 +137,7 @@ The Selenium MCP Server bridges the gap between AI models and web automation by 
 
 ## 🚦 Getting Started
 
-### Installation
+### Development
 
 1. **Clone the repository**:
 
@@ -203,35 +269,6 @@ await tool("browser_type", {
   text: "myusername" 
 });
 
-```
-
-## 🤝 Integration
-
-### MCP Client Integration
-
-Configure your MCP client to connect to the Selenium server:
-
-```json
-{
-  "name": "selenium-mcp",
-  "command": "node",
-  "args": ["path/to/selenium-mcp/dist/index.js"]
-}
-```
-
-### Claude Desktop Integration
-
-Add to your Claude Desktop configuration:
-
-```json
-{
-  "mcpServers": {
-    "selenium": {
-      "command": "node",
-      "args": ["C:/path/to/selenium-mcp/dist/index.js"]
-    }
-  }
-}
 ```
 
 ## 🐛 Troubleshooting

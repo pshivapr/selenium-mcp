@@ -80,6 +80,10 @@ Add to your Claude Desktop configuration:
 }
 ```
 
+## Screenshot
+
+![Selenium + Claude](images/Claude-example.png)
+
 ## 🛠️ MCP Available Tools
 
 ### Browser Management Tools
@@ -143,9 +147,9 @@ Add to your Claude Desktop configuration:
 - **WebDrivers**: Automatically managed by selenium-webdriver
 - **Operating System**: Windows, macOS, or Linux
 
-## 🚦 Getting Started
+## 🚦 Development
 
-### Development
+### Getting Started
 
 1. **Clone the repository**:
 

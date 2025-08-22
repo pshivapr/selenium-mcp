@@ -1,6 +1,6 @@
 # Selenium MCP Server
 
-A Model Context Protocol (MCP) server that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
+A Model Context Protocol (MCP) server for [Selenium](https://www.selenium.dev/) that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
 
 ## 🚀 Overview
 
@@ -20,6 +20,19 @@ The Selenium MCP Server bridges the gap between AI models and web automation by 
 
 Configure your MCP client to connect to the Selenium server:
 
+## Standard Configuration (applicable to Windsurf, Warp, Gemini CLI etc)
+
+```json
+{
+  "servers": {
+    "Selenium": {
+      "command": "npx",
+      "args": ["-y", "selenium-webdriver-mcp"]
+    }
+  }
+}
+```
+
 You can install the package using either npm, or Smithery
 
 Using npm:
@@ -36,9 +49,46 @@ To install Selenium MCP for Claude Desktop automatically via [Smithery](https://
 npx @smithery/cli install @pshivapr/selenium-mcp --client claude
 ```
 
-#### Installation in VS Code
+### Installation in VS Code
 
-Install the Selenium MCP server in VS Code using one of these buttons:
+Update your `mcp.json` in *VS Code* with below configuration
+NOTE: If you're new to MCP servers, follow this link [Use MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
+
+## Example 'stdio' type connection
+
+```json
+{
+  "servers": {
+    "selenium": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "selenium-webdriver-mcp"
+    ],
+    "type": "stdio"
+    }
+  },
+  "inputs": []
+}
+
+```
+
+## Example 'http' type connection
+
+```json
+{
+  "servers": {
+    "Selenium": {
+      "url": "https://smithery.ai/server/@pshivapr/selenium-mcp",
+      "type": "http"
+    }
+  },
+  "inputs": []
+}
+
+```
+
+Alternately to install the Selenium MCP server in VS Code you can use one of these buttons:
 
 <!--
 // Generate using?:
@@ -64,56 +114,7 @@ code --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"seleniu
 vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
 ```
 
-Or simply update your mcp.json in VisualStudio Code IDE with below configuration
-
-## Example 'stdio' type connection
-
-```json
-{
-	"servers": {
-		"selenium": {
-			"command": "npx",
-			"args": [
-				"-y",
-				"selenium-webdriver-mcp"
-			],
-			"type": "stdio"
-		}
-	},
-	"inputs": []
-}
-
-```
-
-## Example 'http' type connection
-
-```json
-{
-	"servers": {
-		"Selenium": {
-			"url": "https://smithery.ai/server/@pshivapr/selenium-mcp",
-			"type": "http"
-		}
-	},
-	"inputs": []
-}
-
-```
-
 After installation, the Selenium MCP server will be available for use with your GitHub Copilot agent in VS Code.
-
-## Standard Configuration (applicable to Windsurf, Warp, Gemini CLI etc)
-
-```json
-{
-  "servers": {
-    "Selenium": {
-      "command": "npx",
-      "args": ["-y", "selenium-webdriver-mcp"]
-    }
-  }
-}
-```
 
 ## Claude Desktop Integration
 
@@ -133,6 +134,8 @@ Add to your Claude Desktop configuration:
 ## Screenshot
 
 ![Selenium + Claude](images/Claude-example.png)
+
+![Selenium + Warp](images/Warp-example.png)
 
 ## 🛠️ MCP Available Tools
 

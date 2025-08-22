@@ -1,0 +1,8 @@
+dist/
+lib/
+node_modules/
+.vscode/mcp.json
+.idea
+.DS_Store
+.env
+sessions/

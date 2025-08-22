@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "selenium": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@pshivapr/selenium-mcp"
+      ]
+    }
+  }
+}

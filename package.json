@@ -1,0 +1,41 @@
+{
+  "name": "@selenium/mcp",
+  "version": "1.0.0",
+  "description": "Selenium Tools for MCP",
+  "type": "module",
+  "bin": {
+    "selenium-mcp": "./dist/index.js"
+  },
+  "author": {
+    "name": "V S Pasham"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts --exec tsx",
+    "clean": "rm -rf dist"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.3",
+    "selenium-webdriver": "^4.35.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/selenium-webdriver": "^4.1.28",
+    "esbuild": "^0.25.9",
+    "esbuild-node-externals": "^1.18.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
+  }
+}

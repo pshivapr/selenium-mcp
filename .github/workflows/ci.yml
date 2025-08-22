@@ -1,5 +1,4 @@
 permissions:
-  contents: read
 name: CI
 
 on:

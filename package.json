@@ -1,6 +1,6 @@
 {
   "name": "selenium-webdriver-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Selenium Tools for MCP",
   "type": "module",
   "bin": {
@@ -21,13 +21,6 @@
     "start:stdio": "node dist/index.js",
     "prepublishOnly": "npm run build:stdio",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "types": "./index.d.ts",
-      "default": "./index.js"
-    }
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.3",

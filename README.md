@@ -25,7 +25,7 @@ You can install the package using either npm, or Smithery
 Using npm:
 
 ```bash
-npm install -g selenium-webdriver-mcp@0.1.1
+npm install -g selenium-webdriver-mcp@0.1.2
 ```
 
 Using Smithery

@@ -64,7 +64,26 @@ code --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"seleniu
 vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
 ```
 
-After installation, the pshivapr Selenium MCP server will be available for use with your GitHub Copilot agent in VS Code.
+Or simply update your mcp.json with below configuration
+
+```json
+{
+ "servers": {
+  "selenium": {
+   "command": "npx",
+   "args": [
+    "-y",
+    "selenium-webdriver-mcp"
+   ],
+   "type": "stdio"
+  }
+ },
+ "inputs": []
+}
+
+```
+
+After installation, the Selenium MCP server will be available for use with your GitHub Copilot agent in VS Code.
 
 ## Standard Configuration (applicable to Windsurf, Warp, Gemini CLI etc)
 

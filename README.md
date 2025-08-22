@@ -64,21 +64,21 @@ code --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"seleniu
 vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
 ```
 
-Or simply update your mcp.json with below configuration
+Or simply update your mcp.json in VisualStudio Code IDE with below configuration
 
 ```json
 {
- "servers": {
-  "selenium": {
-   "command": "npx",
-   "args": [
-    "-y",
-    "selenium-webdriver-mcp"
-   ],
-   "type": "stdio"
-  }
- },
- "inputs": []
+	"servers": {
+		"selenium": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"selenium-webdriver-mcp"
+			],
+			"type": "stdio"
+		}
+	},
+	"inputs": []
 }
 
 ```

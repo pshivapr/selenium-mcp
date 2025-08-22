@@ -66,6 +66,8 @@ vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\":
 
 Or simply update your mcp.json in VisualStudio Code IDE with below configuration
 
+## Example 'stdio' type connection
+
 ```json
 {
 	"servers": {
@@ -76,6 +78,21 @@ Or simply update your mcp.json in VisualStudio Code IDE with below configuration
 				"selenium-webdriver-mcp"
 			],
 			"type": "stdio"
+		}
+	},
+	"inputs": []
+}
+
+```
+
+## Example 'http' type connection
+
+```json
+{
+	"servers": {
+		"Selenium": {
+			"url": "https://smithery.ai/server/@pshivapr/selenium-mcp",
+			"type": "http"
 		}
 	},
 	"inputs": []

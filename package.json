@@ -4,7 +4,7 @@
   "description": "Selenium Tools for MCP",
   "type": "module",
   "bin": {
-    "selenium-mcp": "dist/index.js"
+    "selenium-webdriver-mcp": "dist/index.js"
   },
   "author": {
     "name": "V S Pasham"

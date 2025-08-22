@@ -55,17 +55,31 @@ Alternatively, you can install the Selenium MCP server using the VS Code CLI:
 
 ```bash
 # For VS Code
-code --add-mcp '{"name":"Selenium","command":"npx","args":["selenium-webdriver-mcp"]}'
+code --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
+
 ```
 
 ```bash
 # For VS Code Insiders
-code-insiders --add-mcp '{"name":"Selenium","command":"npx","args":["selenium-webdriver-mcp"]}'
+vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
 ```
 
 After installation, the pshivapr Selenium MCP server will be available for use with your GitHub Copilot agent in VS Code.
 
-## Claude Desktop Integration (also applicable to Windsurf, Warp, Gemini CLI)
+## Standard Configuration (applicable to Windsurf, Warp, Gemini CLI etc)
+
+```json
+{
+  "servers": {
+    "Selenium": {
+      "command": "npx",
+      "args": ["-y", "selenium-webdriver-mcp"]
+    }
+  }
+}
+```
+
+## Claude Desktop Integration
 
 Add to your Claude Desktop configuration:
 

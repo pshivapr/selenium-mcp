@@ -62,6 +62,16 @@ export class ActionService {
     await actions.keyDown(key).keyUp(key).perform();
   }
 
+  async executeScript(script: string): Promise<any> {
+    return this.driver.executeScript(script);
+  }
+
+  async scrollToElement(params: LocatorParams): Promise<void> {
+    const locator = LocatorFactory.createLocator(params.by, params.value);
+    const element = await this.driver.wait(until.elementLocated(locator), params.timeout || 15000);
+    await this.driver.executeScript("arguments[0].scrollIntoView();", element);
+  }
+
   async takeScreenshot(): Promise<string> {
     return this.driver.takeScreenshot();
   }

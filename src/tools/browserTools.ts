@@ -91,6 +91,25 @@ export function registerBrowserTools(server: McpServer, stateManager: StateManag
   );
 
   server.tool(
+    "browser_title",
+    "Get the current page title",
+    {},
+    async () => {
+      try {
+        const driver = stateManager.getDriver();
+        const title = await driver.getTitle();
+        return {
+          content: [{ type: 'text', text: `Current page title is: ${title}` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error getting page title: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
     "browser_resize",
     "Resize the browser window",
     {
@@ -107,6 +126,66 @@ export function registerBrowserTools(server: McpServer, stateManager: StateManag
       } catch (e) {
         return {
           content: [{ type: 'text', text: `Error resizing browser window: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_refresh",
+    "Refresh the current page",
+    {},
+    async () => {
+      try {
+        const driver = stateManager.getDriver();
+        await driver.navigate().refresh();
+        return {
+          content: [{ type: 'text', text: `Browser refreshed` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error refreshing browser: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_switch_tab_or_window",
+    "Switch to a different browser tab or window",
+    {
+      windowHandle: z.string().describe("The handle of the window to switch to")
+    },
+    async ({ windowHandle }) => {
+      try {
+        const driver = stateManager.getDriver();
+        await driver.switchTo().window(windowHandle);
+        return {
+          content: [{ type: 'text', text: `Switched to window: ${windowHandle}` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error switching window: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_switch_to_original_window",
+    "Switches back to the original browser window",
+    {},
+    async () => {
+      try {
+        const driver = stateManager.getDriver();
+        const windowHandles = await driver.getAllWindowHandles();
+        await driver.switchTo().window(windowHandles[0]);
+        return {
+          content: [{ type: 'text', text: `Switched to original window` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error switching to original window: ${(e as Error).message}` }]
         };
       }
     }

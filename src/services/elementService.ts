@@ -26,8 +26,32 @@ export class ElementService {
     await element.sendKeys(params.text);
   }
 
+  async getElementAttribute(params: LocatorParams & { attribute: string }): Promise<string | null> {
+    const element = await this.findElement(params);
+    return element.getAttribute(params.attribute);
+  }
+
+  async clearElement(params: LocatorParams): Promise<void> {
+    const element = await this.findElement(params);
+    await element.clear();
+  } 
+
   async uploadFile(params: LocatorParams & { filePath: string }): Promise<void> {
     const element = await this.findElement(params);
     await element.sendKeys(params.filePath);
+  }
+
+  async isElementDisplayed(params: LocatorParams): Promise<boolean> {
+    try {
+      const element = await this.findElement(params);
+      return element.isDisplayed();
+    } catch {
+      return false;
+    }
+  }
+
+  async switchToFrame(params: LocatorParams): Promise<void> {
+    const element = await this.findElement(params);
+    await this.driver.switchTo().frame(element);
   }
 }

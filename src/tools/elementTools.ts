@@ -69,6 +69,26 @@ export function registerElementTools(server: McpServer, stateManager: StateManag
   );
 
   server.tool(
+    "browser_clear",
+    "Clears the value of an input element",
+    { ...locatorSchema },
+    async ({ by, value, timeout = 15000 }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        await elementService.clearElement({ by, value, timeout });
+        return {
+          content: [{ type: 'text', text: 'Element cleared' }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error clearing element: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
     "browser_get_element_text",
     "Gets the text of an element",
     { ...locatorSchema },
@@ -89,7 +109,70 @@ export function registerElementTools(server: McpServer, stateManager: StateManag
   );
 
   server.tool(
-    "browser_upload_file",
+    "browser_get_attribute",
+    "Gets the value of an attribute from an element",
+    {
+      ...locatorSchema,
+      attribute: z.string().describe("Name of the attribute to get")
+    },
+    async ({ by, value, attribute, timeout = 15000 }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        const attrValue = await elementService.getElementAttribute({ by, value, attribute, timeout });
+        return {
+          content: [{ type: 'text', text: `Attribute "${attribute}" has value: ${attrValue}` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error getting attribute: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_element_is_displayed",
+    "Checks if an element is displayed",
+    { ...locatorSchema },
+    async ({ by, value, timeout = 15000 }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        const isDisplayed = await elementService.isElementDisplayed({ by, value, timeout });
+        return {
+          content: [{ type: 'text', text: `Element is displayed: ${isDisplayed}` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error checking element display status: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_switch_to_frame",
+    "Switches to an iframe element",
+    { ...locatorSchema },
+    async ({ by, value, timeout = 15000 }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        await elementService.switchToFrame({ by, value, timeout });
+        return {
+          content: [{ type: 'text', text: 'Switched to iframe' }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error switching to frame: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_file_upload",
     "Uploads a file using a file input element",
     {
       ...locatorSchema,

@@ -153,7 +153,7 @@ export function registerActionTools(server: McpServer, stateManager: StateManage
   );
 
   server.tool(
-    "browser_press_key",
+    "browser_key_press",
     "Press a key on the keyboard",
     {
       key: z.string().describe("Key to press (e.g., 'Enter', 'Tab', 'a', etc.)")
@@ -175,7 +175,49 @@ export function registerActionTools(server: McpServer, stateManager: StateManage
   );
 
   server.tool(
-    "browser_take_screenshot",
+    "browser_execute_script",
+    "Execute JavaScript in the context of the current page",
+    {
+      script: z.string().describe("JavaScript code to execute")
+    },
+    async ({ script }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        const result = await actionService.executeScript(script);
+        return {
+          content: [{ type: 'text', text: `Script executed successfully: ${result}` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error executing script: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_scroll_to_element",
+    "Scroll to an element",
+    { ...locatorSchema },
+    async ({ by, value, timeout = 15000 }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.scrollToElement({ by, value, timeout });
+        return {
+          content: [{ type: 'text', text: `Scrolled to element` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error scrolling to element: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_screenshot",
     "Take a screenshot of the current page",
     {
       outputPath: z.string().optional().describe("Optional path where to save the screenshot. If not provided, returns base64 data.")

@@ -90,9 +90,11 @@ Add to your Claude Desktop configuration:
 | `browser_navigate` | Navigate to a URL | `url` |
 | `browser_navigate_back` | Navigate back in history | None |
 | `browser_navigate_forward` | Navigate forward in history | None |
+| `browser_title` | Get the current page title | None |
 | `browser_refresh` | Refresh the current page | None |
 | `browser_resize` | Resize browser window | `width`, `height` |
-| `browser_screenshot` | Take a screenshot | `filename` (optional) |
+| `browser_switch_tab_or_window` | Switch to a tab or window | `handle` |
+| `browser_switch_to_original_window` | Switch to the original window | None |
 | `browser_close` | Close current browser session | None |
 
 ### Element Interaction Tools
@@ -103,9 +105,11 @@ Add to your Claude Desktop configuration:
 | `browser_click` | Click on an element | `by`, `value`, `timeout` |
 | `browser_type` | Type text into an element | `by`, `value`, `text`, `timeout` |
 | `browser_get_element_text` | Get text content of element | `by`, `value`, `timeout` |
-| `browser_upload_file` | Upload file via input element | `by`, `value`, `filePath`, `timeout` |
+| `browser_file_upload` | Upload file via input element | `by`, `value`, `filePath`, `timeout` |
 | `browser_clear` | Clear text from an element | `by`, `value`, `timeout` |
 | `browser_get_attribute` | Get element attribute value | `by`, `value`, `attribute`, `timeout` |
+| `browser_element_is_displayed` | Check if element is displayed | `by`, `value`, `timeout` |
+| `browser_switch_to_frame` | Switch to a frame by locator | `by`, `value`, `timeout`, `timeout` |
 
 ### Advanced Action Tools  
 
@@ -118,6 +122,10 @@ Add to your Claude Desktop configuration:
 | `browser_wait_for_element` | Wait for element to appear | `by`, `value`, `timeout` |
 | `browser_scroll_to_element` | Scroll element into view | `by`, `value`, `timeout` |
 | `browser_execute_script` | Execute JavaScript code | `script`, `args` |
+| `browser_screenshot` | Take a screenshot | `filename` (optional) |
+| `browser_select_dropdown_by_text` | Select dropdown option by visible text | `by`, `value`, `text`, `timeout` |
+| `browser_select_dropdown_by_value` | Select dropdown option by value | `by`, `value`, `dropdownValue`, `timeout` |
+| `browser_key_press` | Press a keyboard key in the browser | `key`, `timeout` |
 
 ### Element Locator Strategies
 
@@ -312,7 +320,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **1.0.0** - Initial release with comprehensive Selenium WebDriver integration
+- **0.1.4** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities

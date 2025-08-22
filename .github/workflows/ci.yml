@@ -22,8 +22,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@octocat'
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -31,7 +29,3 @@ jobs:
       - name: Lint (if available)
         run: |
           if npm run | grep -q "lint"; then npm run lint; else echo "No lint script"; fi
-      - name: Publish
-        run: npm publish --registry=https://npm.pkg.github.com
-        env:
-            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

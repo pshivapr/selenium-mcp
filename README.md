@@ -44,13 +44,13 @@ Update your `mcp.json` in **VS Code** with below configuration
 ```json
 {
   "servers": {
-    "selenium": {
-    "command": "npx",
-    "args": [
-      "-y",
-      "selenium-webdriver-mcp"
-    ],
-    "type": "stdio"
+    "Selenium": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "selenium-webdriver-mcp"
+      ],
+      "type": "stdio"
     }
   },
   "inputs": []
@@ -253,7 +253,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.1.8** - Selenium MCP Server
+- **0.1.9** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities

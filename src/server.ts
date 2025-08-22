@@ -10,7 +10,7 @@ export class SeleniumMcpServer {
   constructor() {
     this.server = new McpServer({
       name: "selenium-webdriver-mcp",
-      version: "0.1.5"
+      version: "0.1.6"
     });
 
     this.stateManager = new StateManager();

@@ -29,7 +29,3 @@ jobs:
       - name: Lint (if available)
         run: |
           if npm run | grep -q "lint"; then npm run lint; else echo "No lint script"; fi
-      - name: Publish
-        run: npm publish --registry=https://npm.pkg.github.com --access public
-        env:
-            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

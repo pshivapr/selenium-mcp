@@ -76,7 +76,7 @@ The Selenium MCP Server bridges the gap between AI models and web automation by 
 1. **Clone the repository**:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/pshivapr/selenium-mcp.git
    cd selenium-mcp
    ```
 
@@ -262,10 +262,6 @@ npm start
 ## 📝 License
 
 MIT License - see LICENSE file for details.
-
-## 👨‍💻 Author
-
-**V S Pasham**
 
 ## 🤝 Contributing
 

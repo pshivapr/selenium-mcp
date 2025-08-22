@@ -1,6 +1,4 @@
 dist/
-bin/
-lib/
 node_modules/
 .vscode/mcp.json
 .idea

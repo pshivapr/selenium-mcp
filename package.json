@@ -1,10 +1,10 @@
 {
-  "name": "@selenium/mcp",
-  "version": "1.0.0",
+  "name": "selenium-webdriver-mcp",
+  "version": "0.1.0",
   "description": "Selenium Tools for MCP",
   "type": "module",
   "bin": {
-    "selenium-mcp": "./dist/index.js"
+    "selenium-mcp": "dist/index.js"
   },
   "author": {
     "name": "V S Pasham"

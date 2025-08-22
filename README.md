@@ -25,7 +25,7 @@ You can install the package using either npm, or Smithery
 Using npm:
 
 ```bash
-npm install -g @pshivapr/selenium-mcp
+npm install -g selenium-webdriver-mcp@0.1.0
 ```
 
 Using Smithery
@@ -42,7 +42,7 @@ Install the Selenium MCP server in VS Code using one of these buttons:
 
 <!--
 // Generate using?:
-const config = JSON.stringify({ name: 'Selenium', command: 'npx', args: ["-y", "@pshivapr/selenium-mcp"] });
+const config = JSON.stringify({ name: 'Selenium', command: 'npx', args: ["-y", "selenium-webdriver-mcp"] });
 const urlForWebsites = `vscode:mcp/install?${encodeURIComponent(config)}`;
 // Github markdown does not allow linking to `vscode:` directly, so you can use our redirect:
 const urlForGithub = `https://insiders.vscode.dev/redirect?url=${encodeURIComponent(urlForWebsites)}`;
@@ -55,12 +55,12 @@ Alternatively, you can install the Selenium MCP server using the VS Code CLI:
 
 ```bash
 # For VS Code
-code --add-mcp '{"name":"Selenium","command":"npx","args":["@pshivapr/selenium-mcp"]}'
+code --add-mcp '{"name":"Selenium","command":"npx","args":["selenium-webdriver-mcp"]}'
 ```
 
 ```bash
 # For VS Code Insiders
-code-insiders --add-mcp '{"name":"Selenium","command":"npx","args":["@pshivapr/selenium-mcp"]}'
+code-insiders --add-mcp '{"name":"Selenium","command":"npx","args":["selenium-webdriver-mcp"]}'
 ```
 
 After installation, the pshivapr Selenium MCP server will be available for use with your GitHub Copilot agent in VS Code.
@@ -74,7 +74,7 @@ Add to your Claude Desktop configuration:
   "mcpServers": {
     "Selenium": {
       "command": "npx",
-      "args": ["-y", "@pshivapr/selenium-mcp"]
+      "args": ["-y", "selenium-webdriver-mcp"]
     }
   }
 }

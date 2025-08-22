@@ -253,7 +253,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.1.9** - Selenium MCP Server
+- **0.2.0** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities

@@ -96,7 +96,7 @@ Using npm:
 npm install -g selenium-webdriver-mcp
 ```
 
-Using Smithery
+Using [![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
 
 To install Selenium MCP for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@pshivapr/selenium-mcp):
 

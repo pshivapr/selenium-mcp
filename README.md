@@ -96,9 +96,9 @@ Using npm:
 npm install -g selenium-webdriver-mcp
 ```
 
-Using [![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
+Using [Smithery](https://smithery.ai/server/@pshivapr/selenium-mcp)
 
-To install Selenium MCP for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@pshivapr/selenium-mcp):
+To install Selenium MCP for Claude Desktop automatically via [![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
 
 ```bash
 npx @smithery/cli install @pshivapr/selenium-mcp --client claude
@@ -253,13 +253,17 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.2.0** - Selenium MCP Server
+- **0.2.1** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities
   - Type-safe TypeScript implementation
   - MCP protocol compliance
 
+## Badges
+
+[![MCP Badge](https://lobehub.com/badge/mcp-full/pshivapr-selenium-mcp)](https://lobehub.com/mcp/pshivapr-selenium-mcp)
+
 ---
 
-*Built with ❤️ for the Model Context Protocol ecosystem*
+## Built with ❤️ for the Model Context Protocol ecosystem

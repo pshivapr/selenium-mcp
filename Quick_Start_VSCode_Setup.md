@@ -1,5 +1,7 @@
 # Setting up Selenium MCP Server in VS Code
 
+**NOTE**: If you're new to MCP servers, follow this link [Use MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
+
 ## Step 1: Setup the Project
 
 ### Initialize the Project
@@ -23,10 +25,10 @@ Create a new directory and initialize it with npm
 
 1. Open the VS Code Command Palette (`Cmd/Ctrl + Shift + P`).
 2. Type **"MCP: Add Server"**.
-3. Choose **"Local server using stdio"**.
+3. Choose **"Command (stdio)"**.
 4. Enter the command: `npx -y selenium-webdriver-mcp`.
 5. Give it a name like `Selenium`.
-6. Choose **local setup**.
+6. Choose **Global** for all projects or Choose **Workspace** for just this project setup.
 
 This creates a `.vscode/mcp.json` file in your project:
 

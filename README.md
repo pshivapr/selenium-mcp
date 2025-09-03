@@ -1,3 +1,15 @@
+<div align="center" markdown="1">
+  <table>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
+          <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
 # Selenium MCP Server
 
 A Model Context Protocol (MCP) server for [Selenium](https://www.selenium.dev/) that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
@@ -316,7 +328,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
   - Type-safe TypeScript implementation
   - MCP protocol compliance
 
-## Badges
+## Badges/Mentions
+
+[MCP Market](https://mcpmarket.com/server/selenium-4)
+
+[Pulse](https://www.pulsemcp.com/servers/pshivapr-selenium-webdriver)
 
 [![MCP Badge](https://lobehub.com/badge/mcp-full/pshivapr-selenium-mcp)](https://lobehub.com/mcp/pshivapr-selenium-mcp)
 

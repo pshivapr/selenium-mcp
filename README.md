@@ -2,14 +2,6 @@
 
 [![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
 
-A Model Context Protocol (MCP) server for [Selenium](https://www.selenium.dev/) that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
-
-<a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
-  <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
-</a>
-
-## 🚀 Overview
-
 This is a server implementation that bridges the gap between MCP clients (AI assistants) and Selenium WebDriver. It exposes Selenium WebDriver's functionalities as MCP tools, allowing AI models to utilize them for tasks like:
 
 - Browser management (launching, navigating, closing browsers)
@@ -18,6 +10,14 @@ This is a server implementation that bridges the gap between MCP clients (AI ass
 - Advanced operations like screenshots, cookie management, and JavaScript execution
 
 Built with TypeScript and modern ES modules, it offers type-safe browser automation capabilities through the Model Context Protocol.
+
+<a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
+</a>
+
+## 🚀 Overview
+
+A Model Context Protocol (MCP) server for [Selenium](https://www.selenium.dev/) that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
 
 ## ✨ Key Features
 

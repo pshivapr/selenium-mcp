@@ -4,9 +4,9 @@
 
 A Model Context Protocol (MCP) server for [Selenium](https://www.selenium.dev/) that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
 
-[![Selenium MCP Server Badge](https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge)](https://glama.ai/mcp/servers/@pshivapr/selenium-mcp)
-
-[![MCP Badge](https://lobehub.com/badge/mcp/pshivapr-selenium-mcp?style=flat)](https://lobehub.com/mcp/pshivapr-selenium-mcp)
+<a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
+</a>
 
 ## 🚀 Overview
 

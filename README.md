@@ -1,22 +1,29 @@
-<div align="center" markdown="1">
-  <table>
-    <tr>
-      <td align="center" valign="middle">
-        <a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
-          <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
-        </a>
-      </td>
-    </tr>
-  </table>
-</div>
-
 # Selenium MCP Server
+
+[![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
+
+[![MCP Market](https://mcpmarket.com/server/selenium-4)](https://mcpmarket.com/server/selenium-4)
+
+[![Pulse](https://www.pulsemcp.com/servers/pshivapr-selenium-webdriver)](https://www.pulsemcp.com/servers/pshivapr-selenium-webdriver)
+
+[![MCP Badge](https://lobehub.com/badge/mcp/pshivapr-selenium-mcp)](https://lobehub.com/mcp/pshivapr-selenium-mcp)
 
 A Model Context Protocol (MCP) server for [Selenium](https://www.selenium.dev/) that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
 
+<a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
+</a>
+
 ## 🚀 Overview
 
-The Selenium MCP Server bridges the gap between AI models and web automation by providing a robust set of tools for browser control, element interaction, and web testing. Built with TypeScript and modern ES modules, it offers type-safe browser automation capabilities through the Model Context Protocol.
+This is a server implementation that bridges the gap between MCP clients (AI assistants) and Selenium WebDriver. It exposes Selenium WebDriver's functionalities as MCP tools, allowing AI models to utilize them for tasks like:
+
+- Browser management (launching, navigating, closing browsers)
+- Element interaction (clicking, typing, finding elements)
+- Web scraping and automated testing
+- Advanced operations like screenshots, cookie management, and JavaScript execution
+
+Built with TypeScript and modern ES modules, it offers type-safe browser automation capabilities through the Model Context Protocol.
 
 ## ✨ Key Features
 

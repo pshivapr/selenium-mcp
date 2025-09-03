@@ -1,6 +1,6 @@
 {
   "name": "selenium-webdriver-mcp",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Selenium Tools for MCP",
   "type": "module",
   "bin": {
@@ -28,6 +28,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/pshivapr/selenium-mcp.git"
+  },
+  "keywords": [
+    "selenium",
+    "webdriver",
+    "selenium-webdriver",
+    "mcp",
+    "modelcontextprotocol",
+    "automation"
+  ],
+  "bugs": {
+    "url": "https://github.com/pshivapr/selenium-mcp/issues"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.3",

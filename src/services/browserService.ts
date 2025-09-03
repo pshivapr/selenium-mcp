@@ -2,6 +2,7 @@ import { Builder, WebDriver } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome.js';
 import { Options as FirefoxOptions } from 'selenium-webdriver/firefox.js';
 import { Options as EdgeOptions } from 'selenium-webdriver/edge.js';
+import { Options as SafariOptions } from 'selenium-webdriver/safari.js';
 import { BrowserOptions } from '../types/index.js';
 
 export class BrowserService {
@@ -47,7 +48,15 @@ export class BrowserService {
       .build();
   }
 
-  static async createDriver(browser: 'chrome' | 'firefox' | 'edge', options: BrowserOptions = {}): Promise<WebDriver> {
+  static async createSafariDriver(): Promise<WebDriver> {
+    const safariOptions = new SafariOptions();
+    return new Builder()
+      .forBrowser('safari')
+      .setSafariOptions(safariOptions)
+      .build();
+  }
+
+  static async createDriver(browser: 'chrome' | 'firefox' | 'edge' | 'safari', options: BrowserOptions = {}): Promise<WebDriver> {
     switch (browser) {
       case 'chrome':
         return this.createChromeDriver(options);
@@ -55,6 +64,8 @@ export class BrowserService {
         return this.createEdgeDriver(options);
       case 'firefox':
         return this.createFirefoxDriver(options);
+      case 'safari':
+        return this.createSafariDriver();
       default:
         throw new Error(`Unsupported browser: ${browser}`);
     }

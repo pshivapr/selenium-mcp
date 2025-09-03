@@ -50,7 +50,7 @@ export function registerActionTools(server: McpServer, stateManager: StateManage
     "Perform drag and drop between two elements",
     {
       ...locatorSchema,
-      targetBy: z.enum(["id", "css", "xpath", "name", "tag", "class"]).describe("Locator strategy to find target element"),
+      targetBy: z.enum(["id", "css", "xpath", "name", "tag", "class", "link", "partialLink"]).describe("Locator strategy to find target element"),
       targetValue: z.string().describe("Value for the target locator strategy")
     },
     async ({ by, value, targetBy, targetValue, timeout = 15000 }) => {
@@ -211,6 +211,192 @@ export function registerActionTools(server: McpServer, stateManager: StateManage
       } catch (e) {
         return {
           content: [{ type: 'text', text: `Error scrolling to element: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_scroll_to_top",
+    "Scroll to the top of the page",
+    {},
+    async () => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.scrollToTop();
+        return {
+          content: [{ type: 'text', text: `Scrolled to top of the page` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error scrolling to top: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_scroll_to_bottom",
+    "Scroll to the bottom of the page",
+    {},
+    async () => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.scrollToBottom();
+        return {
+          content: [{ type: 'text', text: `Scrolled to bottom of the page` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error scrolling to bottom: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_scroll_to_coordinates",
+    "Scroll to specific coordinates",
+    {
+      x: z.number().describe("X coordinate"),
+      y: z.number().describe("Y coordinate")
+    },
+    async ({ x, y }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.scrollToCoordinates(x, y);
+        return {
+          content: [{ type: 'text', text: `Scrolled to coordinates (${x}, ${y})` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error scrolling to coordinates: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_scroll_by_pixels",
+    "Scroll by a specific number of pixels",
+    {
+      x: z.number().describe("Number of pixels to scroll horizontally"),
+      y: z.number().describe("Number of pixels to scroll vertically")
+    },
+    async ({ x, y }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.scrollByPixels(x, y);
+        return {
+          content: [{ type: 'text', text: `Scrolled by pixels (${x}, ${y})` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error scrolling by pixels: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_select_checkbox",
+    "Select a checkbox",
+    { ...locatorSchema },
+    async ({ by, value }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.selectCheckbox({ by, value });
+        return {
+          content: [{ type: 'text', text: `Selected checkbox` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error selecting checkbox: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_unselect_checkbox",
+    "Unselect a checkbox",
+    { ...locatorSchema },
+    async ({ by, value }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.unselectCheckbox({ by, value });
+        return {
+          content: [{ type: 'text', text: `Unselected checkbox` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error unselecting checkbox: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_submit_form",
+    "Submit a form",
+    { ...locatorSchema },
+    async ({ by, value }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.submitForm({ by, value });
+        return {
+          content: [{ type: 'text', text: `Submitted form` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error submitting form: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_focus_element",
+    "Focus on a specific element",
+    { ...locatorSchema },
+    async ({ by, value }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.focusElement({ by, value });
+        return {
+          content: [{ type: 'text', text: `Focused on element` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error focusing on element: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_blur_element",
+    "Remove focus from a specific element",
+    { ...locatorSchema },
+    async ({ by, value }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const actionService = new ActionService(driver);
+        await actionService.blurElement({ by, value });
+        return {
+          content: [{ type: 'text', text: `Removed focus from element` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error removing focus from element: ${(e as Error).message}` }]
         };
       }
     }

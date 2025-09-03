@@ -26,6 +26,26 @@ export function registerElementTools(server: McpServer, stateManager: StateManag
   );
 
   server.tool(
+    "browser_find_elements",
+    "Find multiple elements",
+    { ...locatorSchema },
+    async ({ by, value, timeout = 15000 }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        const elements = await elementService.findElements({ by, value, timeout });
+        return {
+          content: [{ type: 'text', text: `Found ${elements.length} elements` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error finding elements: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
     "browser_click",
     "Perform a click on an element",
     { ...locatorSchema },
@@ -152,6 +172,46 @@ export function registerElementTools(server: McpServer, stateManager: StateManag
   );
 
   server.tool(
+    "browser_element_is_enabled",
+    "Checks if an element is enabled",
+    { ...locatorSchema },
+    async ({ by, value, timeout = 15000 }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        const isEnabled = await elementService.isElementEnabled({ by, value, timeout });
+        return {
+          content: [{ type: 'text', text: `Element is enabled: ${isEnabled}` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error checking element enabled status: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_element_is_selected",
+    "Checks if an element is selected",
+    { ...locatorSchema },
+    async ({ by, value, timeout = 15000 }) => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        const isSelected = await elementService.isElementSelected({ by, value, timeout });
+        return {
+          content: [{ type: 'text', text: `Element is selected: ${isSelected}` }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error checking element selected status: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
     "browser_switch_to_frame",
     "Switches to an iframe element",
     { ...locatorSchema },
@@ -166,6 +226,44 @@ export function registerElementTools(server: McpServer, stateManager: StateManag
       } catch (e) {
         return {
           content: [{ type: 'text', text: `Error switching to frame: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_switch_to_default_content",
+    "Switches to the default content",
+    async () => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        await elementService.switchToDefaultContent();
+        return {
+          content: [{ type: 'text', text: 'Switched to default content' }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error switching to default content: ${(e as Error).message}` }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    "browser_switch_to_parent_frame",
+    "Switches to the parent iframe",
+    async () => {
+      try {
+        const driver = stateManager.getDriver();
+        const elementService = new ElementService(driver);
+        await elementService.switchToParentFrame();
+        return {
+          content: [{ type: 'text', text: 'Switched to parent frame' }]
+        };
+      } catch (e) {
+        return {
+          content: [{ type: 'text', text: `Error switching to parent frame: ${(e as Error).message}` }]
         };
       }
     }

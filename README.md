@@ -8,7 +8,7 @@ The Selenium MCP Server bridges the gap between AI models and web automation by 
 
 ## ✨ Key Features
 
-- **Multi-Browser Support**: Chrome, Firefox, and Edge browser automation
+- **Multi-Browser Support**: Chrome, Firefox, Safari, and Edge browser automation
 - **Comprehensive Element Interaction**: Click, type, hover, drag & drop, file uploads
 - **Advanced Navigation**: Forward, backward, refresh, window management
 - **Wait Strategies**: Intelligent waiting for elements and page states
@@ -135,24 +135,61 @@ Add to your Claude Desktop configuration:
 | `browser_navigate_forward` | Navigate forward in history | None |
 | `browser_title` | Get the current page title | None |
 | `browser_refresh` | Refresh the current page | None |
+| `browser_get_url` | Get the current page URL | None |
+| `browser_get_page_source` | Get the current page HTML source | None |
+| `browser_maximize` | Maximize the browser window | None |
 | `browser_resize` | Resize browser window | `width`, `height` |
-| `browser_switch_tab_or_window` | Switch to a tab or window | `handle` |
-| `browser_switch_to_original_window` | Switch to the original window | None |
 | `browser_close` | Close current browser session | None |
+
+### Cookie Management Tools
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `browser_get_cookies` | Get all cookies from the current browser session | None |
+| `browser_get_cookie_by_name` | Get a specific cookie by name | `cookie` (cookie name) |
+| `browser_add_cookie_by_name` | Add a new cookie to the browser | `cookie` (cookie name), `value` |
+| `browser_set_cookie_object` | Set a cookie object in the browser | `cookie` (cookie object as string) |
+| `browser_delete_cookie` | Delete a specific cookie by name | `value` (cookie name to delete) |
+| `browser_delete_cookies` | Delete all cookies from the current browser session | None |
+
+### Window Management Tools
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `browser_switch_to_window` | Switch to a different browser window by handle | `windowHandle` |
+| `browser_switch_to_original_window` | Switch back to the original browser window | None |
+| `browser_switch_to_window_by_title` | Switch to a window by its page title | `title` |
+| `browser_switch_window_by_index` | Switch to a window by its index position | `index` |
+| `browser_switch_to_window_by_url` | Switch to a window by its URL | `url` |
 
 ### Element Interaction Tools
 
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `browser_find_element` | Find an element on the page | `by`, `value`, `timeout` |
+| `browser_find_elements` | Find multiple elements on the page | `by`, `value`, `timeout` |
 | `browser_click` | Click on an element | `by`, `value`, `timeout` |
 | `browser_type` | Type text into an element | `by`, `value`, `text`, `timeout` |
 | `browser_get_element_text` | Get text content of element | `by`, `value`, `timeout` |
 | `browser_file_upload` | Upload file via input element | `by`, `value`, `filePath`, `timeout` |
 | `browser_clear` | Clear text from an element | `by`, `value`, `timeout` |
 | `browser_get_attribute` | Get element attribute value | `by`, `value`, `attribute`, `timeout` |
-| `browser_element_is_displayed` | Check if element is displayed | `by`, `value`, `timeout` |
-| `browser_switch_to_frame` | Switch to a frame by locator | `by`, `value`, `timeout`, `timeout` |
+
+### Element State Validation Tools
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `browser_element_is_displayed` | Check if an element is visible on the page | `by`, `value`, `timeout` |
+| `browser_element_is_enabled` | Check if an element is enabled for interaction | `by`, `value`, `timeout` |
+| `browser_element_is_selected` | Check if an element is selected (checkboxes, radio buttons) | `by`, `value`, `timeout` |
+
+### Frame Management Tools
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `browser_switch_to_frame` | Switch to an iframe element | `by`, `value`, `timeout` |
+| `browser_switch_to_parent_frame` | Switch to the parent frame (from nested iframe) | None |
+| `browser_switch_to_default_content` | Switch back to the main page content | None |
 
 ### Advanced Action Tools  
 
@@ -163,12 +200,31 @@ Add to your Claude Desktop configuration:
 | `browser_right_click` | Right-click (context menu) | `by`, `value`, `timeout` |
 | `browser_drag_and_drop` | Drag from source to target | `by`, `value`, `targetBy`, `targetValue`, `timeout` |
 | `browser_wait_for_element` | Wait for element to appear | `by`, `value`, `timeout` |
-| `browser_scroll_to_element` | Scroll element into view | `by`, `value`, `timeout` |
 | `browser_execute_script` | Execute JavaScript code | `script`, `args` |
 | `browser_screenshot` | Take a screenshot | `filename` (optional) |
 | `browser_select_dropdown_by_text` | Select dropdown option by visible text | `by`, `value`, `text`, `timeout` |
 | `browser_select_dropdown_by_value` | Select dropdown option by value | `by`, `value`, `dropdownValue`, `timeout` |
 | `browser_key_press` | Press a keyboard key in the browser | `key`, `timeout` |
+
+### Scrolling Tools
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `browser_scroll_to_element` | Scroll to bring an element into view | `by`, `value`, `timeout` |
+| `browser_scroll_to_top` | Scroll to the top of the page | None |
+| `browser_scroll_to_bottom` | Scroll to the bottom of the page | None |
+| `browser_scroll_to_coordinates` | Scroll to specific coordinates | `x`, `y` |
+| `browser_scroll_by_pixels` | Scroll by specified number of pixels | `x`, `y` |
+
+### Form Interaction Tools
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `browser_select_checkbox` | Select/check a checkbox | `by`, `value`, `timeout` |
+| `browser_unselect_checkbox` | Unselect/uncheck a checkbox | `by`, `value`, `timeout` |
+| `browser_submit_form` | Submit a form element | `by`, `value`, `timeout` |
+| `browser_focus_element` | Focus on a specific element | `by`, `value`, `timeout` |
+| `browser_blur_element` | Remove focus from a specific element | `by`, `value`, `timeout` |
 
 ### Element Locator Strategies
 
@@ -182,7 +238,7 @@ Add to your Claude Desktop configuration:
 ## 📋 Requirements
 
 - **Node.js**: Version 18.0.0 or higher
-- **Browsers**: Chrome, Firefox, or Edge installed
+- **Browsers**: Chrome, Firefox, Safari, or Edge installed
 - **WebDrivers**: Automatically managed by selenium-webdriver
 - **Operating System**: Windows, macOS, or Linux
 
@@ -253,8 +309,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.2.1** - Selenium MCP Server
-  - Multi-browser support (Chrome, Firefox, Edge)
+- **0.2.2** - Selenium MCP Server
+  - Multi-browser support (Chrome, Firefox, Safari, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities
   - Type-safe TypeScript implementation

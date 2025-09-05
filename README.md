@@ -1,6 +1,6 @@
 # Selenium MCP Server
 
-[![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
+| [![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp) | ![npm version](https://img.shields.io/npm/v/selenium-webdriver-mcp) | ![npm downloads](https://img.shields.io/npm/dt/selenium-webdriver-mcp) | ![GitHub issues](https://img.shields.io/github/issues/pshivapr/selenium-mcp) |
 
 This is a server implementation that bridges the gap between MCP clients (AI assistants) and Selenium WebDriver. It exposes Selenium WebDriver's functionalities as MCP tools, allowing AI models to utilize them for tasks like:
 
@@ -322,7 +322,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.2.4** - Selenium MCP Server
+- **0.2.5** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Safari, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities

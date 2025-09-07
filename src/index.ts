@@ -3,27 +3,18 @@
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { createSeleniumMcpServer } from './server.js';
 
-/**
- * Application configuration interface
- */
 interface AppConfig {
   enableHealthLogging: boolean;
   shutdownTimeout: number;
   logLevel: 'error' | 'warn' | 'info' | 'debug';
 }
 
-/**
- * Default application configuration
- */
 const defaultConfig: AppConfig = {
   enableHealthLogging: true,
   shutdownTimeout: 5000, // 5 seconds
   logLevel: 'info',
 };
 
-/**
- * Enhanced logging utility
- */
 class Logger {
   private config: AppConfig;
 
@@ -61,9 +52,6 @@ class Logger {
   }
 }
 
-/**
- * Main application class
- */
 class SeleniumMcpApplication {
   private readonly config: AppConfig;
   private readonly logger: Logger;
@@ -75,9 +63,6 @@ class SeleniumMcpApplication {
     this.logger = new Logger(this.config);
   }
 
-  /**
-   * Initialize and start the application
-   */
   public async start(): Promise<void> {
     try {
       this.logger.info('🚀 Initializing Selenium MCP Server...');
@@ -110,9 +95,6 @@ class SeleniumMcpApplication {
     }
   }
 
-  /**
-   * Log server health information
-   */
   private logServerHealth(): void {
     if (!this.seleniumServer) {
       return;
@@ -126,9 +108,6 @@ class SeleniumMcpApplication {
     }
   }
 
-  /**
-   * Setup signal handlers for graceful shutdown
-   */
   private setupSignalHandlers(): void {
     const signals: NodeJS.Signals[] = ['SIGTERM', 'SIGINT'];
 
@@ -143,9 +122,6 @@ class SeleniumMcpApplication {
     });
   }
 
-  /**
-   * Setup error handlers
-   */
   private setupErrorHandlers(): void {
     // Handle uncaught exceptions
     process.on('uncaughtException', (error: Error) => {
@@ -160,9 +136,6 @@ class SeleniumMcpApplication {
     });
   }
 
-  /**
-   * Handle graceful shutdown
-   */
   private async handleShutdown(signal: string): Promise<void> {
     if (this.isShuttingDown) {
       this.logger.warn('Shutdown already in progress, forcing exit...');
@@ -198,9 +171,6 @@ class SeleniumMcpApplication {
     }
   }
 
-  /**
-   * Get application statistics
-   */
   public getStats(): {
     app: {
       uptime: number;
@@ -228,16 +198,18 @@ class SeleniumMcpApplication {
   }
 }
 
-/**
- * Main function to start the application
- */
 async function main(): Promise<void> {
   // Parse environment variables for configuration
   const config: Partial<AppConfig> = {
     enableHealthLogging: process.env.ENABLE_HEALTH_LOGGING !== 'false',
-    shutdownTimeout: process.env.SHUTDOWN_TIMEOUT ? parseInt(process.env.SHUTDOWN_TIMEOUT, 10) : undefined,
     logLevel: (process.env.LOG_LEVEL as AppConfig['logLevel']) || 'info',
   };
+
+  // Only add shutdownTimeout if it's a valid number
+  const shutdownTimeoutValue = process.env.SHUTDOWN_TIMEOUT ? parseInt(process.env.SHUTDOWN_TIMEOUT, 10) : null;
+  if (shutdownTimeoutValue !== null && !isNaN(shutdownTimeoutValue)) {
+    config.shutdownTimeout = shutdownTimeoutValue;
+  }
 
   // Create and start application
   const app = new SeleniumMcpApplication(config as AppConfig);
@@ -250,9 +222,7 @@ async function main(): Promise<void> {
   }
 }
 
-/**
- * Start the application with comprehensive error handling
- */
+// Start the application
 main().catch((error: unknown) => {
   console.error('❌ Failed to start server:', error);
   process.exit(1);

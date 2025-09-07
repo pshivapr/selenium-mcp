@@ -14,7 +14,11 @@ export function registerBrowserTools(server: McpServer, stateManager: StateManag
     },
     async ({ browser, options = {} }) => {
       try {
-        const driver = await BrowserService.createDriver(browser, options);
+        const driver = await BrowserService.createDriver(browser, {
+          ...options,
+          headless: typeof options.headless === 'boolean' ? options.headless : false,
+          arguments: options.arguments ?? [],
+        });
         const sessionId = `${browser}_${Date.now()}`;
 
         stateManager.addDriver(sessionId, driver);
@@ -257,7 +261,18 @@ export function registerBrowserTools(server: McpServer, stateManager: StateManag
     try {
       const driver = stateManager.getDriver();
       const windowHandles = await driver.getAllWindowHandles();
-      await driver.switchTo().window(windowHandles[0]);
+      const originalHandle = windowHandles[0];
+      if (!originalHandle) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `No original window handle found.`,
+            },
+          ],
+        };
+      }
+      await driver.switchTo().window(originalHandle);
       return {
         content: [{ type: 'text', text: `Switched to original window` }],
       };
@@ -323,7 +338,13 @@ export function registerBrowserTools(server: McpServer, stateManager: StateManag
             content: [{ type: 'text', text: `Invalid window index: ${index}` }],
           };
         }
-        await driver.switchTo().window(windowHandles[index]);
+        const handle = windowHandles[index];
+        if (!handle) {
+          return {
+            content: [{ type: 'text', text: `No window handle found at index: ${index}` }],
+          };
+        }
+        await driver.switchTo().window(handle);
         return {
           content: [{ type: 'text', text: `Switched to window at index: ${index}` }],
         };

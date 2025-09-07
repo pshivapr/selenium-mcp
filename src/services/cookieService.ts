@@ -20,11 +20,18 @@ export class CookieService {
   async setCookie(cookie: string): Promise<void> {
     // Parse cookie string into an object
     const [nameValue, ...attributes] = cookie.split(';').map(part => part.trim());
-    const [name, value] = nameValue.split('=');
+    let name = '';
+    let value = '';
+    if (nameValue) {
+      const parts = nameValue.split('=');
+      name = parts[0] ?? '';
+      value = parts[1] ?? '';
+    }
     const cookieObj: any = { name, value };
 
     attributes.forEach(attr => {
       const [attrName, attrValue] = attr.split('=');
+      if (!attrName) return;
       switch (attrName.toLowerCase()) {
         case 'name':
           cookieObj.name = attrValue;
@@ -36,7 +43,9 @@ export class CookieService {
           cookieObj.path = attrValue;
           break;
         case 'expires':
-          cookieObj.expiry = Math.floor(new Date(attrValue).getTime() / 1000);
+          if (attrValue !== undefined) {
+            cookieObj.expiry = Math.floor(new Date(attrValue).getTime() / 1000);
+          }
           break;
         case 'secure':
           cookieObj.secure = true;

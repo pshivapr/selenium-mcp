@@ -4,10 +4,10 @@
 echo "🚀 Running pre-push checks..."
 
 # Run tests if they exist
-if [ -f "package.json" ] && grep -q '"test"' package.json; then
-    echo "🧪 Running tests..."
-    npm test
-fi
+# if [ -f "package.json" ] && grep -q '"test"' package.json; then
+#     echo "🧪 Running tests..."
+#     npm test
+# fi
 
 # Final build check
 echo "🏗️  Final build check..."

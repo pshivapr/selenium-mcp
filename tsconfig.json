@@ -22,9 +22,10 @@
     "noEmit": false,
     "allowImportingTsExtensions": false,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true
+    "exactOptionalPropertyTypes": true,
+    "types": ["node"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "version.config.json"],
   "exclude": ["node_modules", "dist", "coverage"],
   "ts-node": {
     "esm": true,

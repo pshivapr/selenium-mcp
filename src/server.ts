@@ -2,18 +2,24 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StateManager } from './utils/helpers.js';
 import { registerAllTools } from './tools/index.js';
 import { registerBrowserStatusResource } from './resources/browserStatus.js';
+import { readFileSync } from 'fs';
+
+// Read version from central config
+const versionConfig = JSON.parse(readFileSync('./version.config.json', 'utf8'));
 
 export class SeleniumMcpServer {
   private readonly server: McpServer;
   private readonly stateManager: StateManager;
+  private readonly startTime: number;
 
   constructor() {
     this.server = new McpServer({
-      name: 'selenium-webdriver-mcp',
-      version: '0.2.6',
+      name: versionConfig.name,
+      version: versionConfig.version,
     });
 
     this.stateManager = new StateManager();
+    this.startTime = Date.now();
   }
 
   public initialize(): void {
@@ -162,14 +168,53 @@ export class SeleniumMcpServer {
     return {
       status: 'healthy',
       activeSessions: state.drivers.size,
-      serverName: 'selenium-webdriver-mcp',
-      version: '0.2.6',
+      serverName: versionConfig.name,
+      version: versionConfig.version,
       uptime: process.uptime(),
+    };
+  }
+
+  public getStats(): {
+    server: {
+      name: string;
+      version: string;
+      uptime: number;
+      memoryUsage: NodeJS.MemoryUsage;
+      isShuttingDown: boolean;
+    };
+    sessions: {
+      total: number;
+      active: number;
+      sessionIds: string[];
+      currentSession: string | null;
+    };
+  } {
+    const state = this.stateManager.getState();
+    const sessionIds = Array.from(state.drivers.keys());
+
+    return {
+      server: {
+        name: versionConfig.name,
+        version: versionConfig.version,
+        uptime: process.uptime(),
+        memoryUsage: process.memoryUsage(),
+        isShuttingDown: false,
+      },
+      sessions: {
+        total: state.drivers.size,
+        active: state.drivers.size,
+        sessionIds,
+        currentSession: state.currentSession,
+      },
     };
   }
 }
 
-export function createSeleniumMcpServer(options?: { autoStart?: boolean }): SeleniumMcpServer {
+export function createSeleniumMcpServer(options?: {
+  autoStart?: boolean;
+  enableHealthLogging?: boolean;
+  shutdownTimeout?: number;
+}): SeleniumMcpServer {
   const server = new SeleniumMcpServer();
   server.initialize();
 

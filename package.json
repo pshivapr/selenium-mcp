@@ -1,6 +1,6 @@
 {
   "name": "selenium-webdriver-mcp",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Selenium Tools for MCP",
   "type": "module",
   "bin": {
@@ -29,11 +29,15 @@
     "type-check": "tsc --noEmit",
     "build:stdio": "tsc",
     "build:http": "npx @smithery/cli build",
-    "build:test": "tsc && npm run test",
+    "build:test": "npm run build && npm run test",
     "start:http": "node .smithery/index.cjs",
     "start:stdio": "node dist/index.js",
-    "prepublishOnly": "npm run build:stdio",
-    "prepare": "husky install"
+    "prepublishOnly": "npm run version:sync && npm run build:stdio",
+    "prepare": "husky install",
+    "test": "npm run build && node --test test/**/*.test.js",
+    "test:watch": "npm run build && node --test --watch test/**/*.test.js",
+    "test:health": "npm run build && node --test test/health-check.test.js",
+    "version:sync": "node scripts/sync-version.js"
   },
   "lint-staged": {
     "*.{ts,js}": [

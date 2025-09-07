@@ -4,7 +4,7 @@ import { LocatorFactory } from '../utils/locators.js';
 import { LocatorParams } from '../types/index.js';
 
 export class ActionService {
-  constructor(private driver: WebDriver) { }
+  constructor(private driver: WebDriver) {}
 
   async hoverOverElement(params: LocatorParams): Promise<void> {
     const locator = LocatorFactory.createLocator(params.by, params.value);
@@ -69,15 +69,15 @@ export class ActionService {
   async scrollToElement(params: LocatorParams): Promise<void> {
     const locator = LocatorFactory.createLocator(params.by, params.value);
     const element = await this.driver.wait(until.elementLocated(locator), params.timeout || 15000);
-    await this.driver.executeScript("arguments[0].scrollIntoView();", element);
+    await this.driver.executeScript('arguments[0].scrollIntoView();', element);
   }
 
   async scrollToTop(): Promise<void> {
-    await this.driver.executeScript("window.scrollTo(0, 0);");
+    await this.driver.executeScript('window.scrollTo(0, 0);');
   }
 
   async scrollToBottom(): Promise<void> {
-    await this.driver.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    await this.driver.executeScript('window.scrollTo(0, document.body.scrollHeight);');
   }
 
   async scrollToCoordinates(x: number, y: number): Promise<void> {
@@ -97,19 +97,19 @@ export class ActionService {
   async focusElement(params: LocatorParams): Promise<void> {
     const locator = LocatorFactory.createLocator(params.by, params.value);
     const element = await this.driver.wait(until.elementLocated(locator), params.timeout || 15000);
-    await this.driver.executeScript("arguments[0].focus();", element);
+    await this.driver.executeScript('arguments[0].focus();', element);
   }
 
   async blurElement(params: LocatorParams): Promise<void> {
     const locator = LocatorFactory.createLocator(params.by, params.value);
     const element = await this.driver.wait(until.elementLocated(locator), params.timeout || 15000);
-    await this.driver.executeScript("arguments[0].blur();", element);
+    await this.driver.executeScript('arguments[0].blur();', element);
   }
 
   async selectCheckbox(params: LocatorParams): Promise<void> {
     const locator = LocatorFactory.createLocator(params.by, params.value);
     const checkbox = await this.driver.wait(until.elementLocated(locator), params.timeout || 15000);
-    if (!await checkbox.isSelected()) {
+    if (!(await checkbox.isSelected())) {
       await checkbox.click();
     }
   }

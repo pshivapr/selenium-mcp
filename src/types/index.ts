@@ -6,7 +6,7 @@ export interface ServerState {
   currentSession: string | null;
 }
 
-export type LocatorStrategy = "id" | "css" | "xpath" | "name" | "tag" | "class" | "link" | "partialLink";
+export type LocatorStrategy = 'id' | 'css' | 'xpath' | 'name' | 'tag' | 'class' | 'link' | 'partialLink';
 
 export interface LocatorParams {
   by: LocatorStrategy;
@@ -19,13 +19,17 @@ export interface BrowserOptions {
   arguments?: string[];
 }
 
-export const browserOptionsSchema = z.object({
-  headless: z.boolean().optional().describe("Run browser in headless mode"),
-  arguments: z.array(z.string()).optional().describe("Additional browser arguments")
-}).optional();
+export const browserOptionsSchema = z
+  .object({
+    headless: z.boolean().optional().describe('Run browser in headless mode'),
+    arguments: z.array(z.string()).optional().describe('Additional browser arguments'),
+  })
+  .optional();
 
 export const locatorSchema = {
-  by: z.enum(["id", "css", "xpath", "name", "tag", "class", "link", "partialLink"]).describe("Locator strategy to find element"),
-  value: z.string().describe("Value for the locator strategy"),
-  timeout: z.number().optional().describe("Maximum time to wait for element in milliseconds")
+  by: z
+    .enum(['id', 'css', 'xpath', 'name', 'tag', 'class', 'link', 'partialLink'])
+    .describe('Locator strategy to find element'),
+  value: z.string().describe('Value for the locator strategy'),
+  timeout: z.number().optional().describe('Maximum time to wait for element in milliseconds'),
 };

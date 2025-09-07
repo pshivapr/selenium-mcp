@@ -7,7 +7,7 @@ export class StateManager {
   constructor() {
     this.state = {
       drivers: new Map(),
-      currentSession: null
+      currentSession: null,
     };
   }
 

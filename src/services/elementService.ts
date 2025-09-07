@@ -3,7 +3,7 @@ import { LocatorFactory } from '../utils/locators.js';
 import { LocatorParams } from '../types/index.js';
 
 export class ElementService {
-  constructor(private driver: WebDriver) { }
+  constructor(private driver: WebDriver) {}
 
   async findElement(params: LocatorParams): Promise<WebElement> {
     const locator = LocatorFactory.createLocator(params.by, params.value);
@@ -40,7 +40,7 @@ export class ElementService {
   async clearElement(params: LocatorParams): Promise<void> {
     const element = await this.findElement(params);
     await element.clear();
-  } 
+  }
 
   async uploadFile(params: LocatorParams & { filePath: string }): Promise<void> {
     const element = await this.findElement(params);

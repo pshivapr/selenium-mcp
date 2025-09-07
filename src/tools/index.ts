@@ -1,4 +1,4 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StateManager } from '../utils/helpers.js';
 import { registerBrowserTools } from './browserTools.js';
 import { registerElementTools } from './elementTools.js';

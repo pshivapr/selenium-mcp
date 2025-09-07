@@ -14,10 +14,7 @@ export class BrowserService {
     if (options.arguments) {
       options.arguments.forEach(arg => chromeOptions.addArguments(arg));
     }
-    return new Builder()
-      .forBrowser('chrome')
-      .setChromeOptions(chromeOptions)
-      .build();
+    return new Builder().forBrowser('chrome').setChromeOptions(chromeOptions).build();
   }
 
   static async createEdgeDriver(options: BrowserOptions = {}): Promise<WebDriver> {
@@ -28,10 +25,7 @@ export class BrowserService {
     if (options.arguments) {
       options.arguments.forEach(arg => edgeOptions.addArguments(arg));
     }
-    return new Builder()
-      .forBrowser('edge')
-      .setEdgeOptions(edgeOptions)
-      .build();
+    return new Builder().forBrowser('edge').setEdgeOptions(edgeOptions).build();
   }
 
   static async createFirefoxDriver(options: BrowserOptions = {}): Promise<WebDriver> {
@@ -42,21 +36,18 @@ export class BrowserService {
     if (options.arguments) {
       options.arguments.forEach(arg => firefoxOptions.addArguments(arg));
     }
-    return new Builder()
-      .forBrowser('firefox')
-      .setFirefoxOptions(firefoxOptions)
-      .build();
+    return new Builder().forBrowser('firefox').setFirefoxOptions(firefoxOptions).build();
   }
 
   static async createSafariDriver(): Promise<WebDriver> {
     const safariOptions = new SafariOptions();
-    return new Builder()
-      .forBrowser('safari')
-      .setSafariOptions(safariOptions)
-      .build();
+    return new Builder().forBrowser('safari').setSafariOptions(safariOptions).build();
   }
 
-  static async createDriver(browser: 'chrome' | 'firefox' | 'edge' | 'safari', options: BrowserOptions = {}): Promise<WebDriver> {
+  static async createDriver(
+    browser: 'chrome' | 'firefox' | 'edge' | 'safari',
+    options: BrowserOptions = {}
+  ): Promise<WebDriver> {
     switch (browser) {
       case 'chrome':
         return this.createChromeDriver(options);

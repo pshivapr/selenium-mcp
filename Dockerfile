@@ -12,6 +12,7 @@ RUN npm install --ignore-scripts
 
 # Copy the entire source directory
 COPY src ./src
+COPY version.config.json ./
 COPY tsconfig.json ./
 
 # Build the project
@@ -25,6 +26,7 @@ WORKDIR /app
 
 # Copy the built files from the builder stage
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/version.config.json ./version.config.json
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/package-lock.json ./package-lock.json
 

@@ -14,7 +14,6 @@ RUN npm install --ignore-scripts
 COPY src ./src
 COPY version.config.json ./
 COPY tsconfig.json ./
-COPY Quick_Start_VSCode_Setup.md ./
 
 # Build the project
 RUN npm run build
@@ -28,7 +27,6 @@ WORKDIR /app
 # Copy the built files from the builder stage
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/version.config.json ./version.config.json
-COPY --from=builder /app/Quick_Start_VSCode_Setup.md ./Quick_Start_VSCode_Setup.md
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/package-lock.json ./package-lock.json
 

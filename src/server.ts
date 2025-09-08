@@ -9,6 +9,8 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const configPath = join(__dirname, '..', 'version.config.json');
+const CLEANUP_TIMEOUT_MS = 10000; // 10 seconds for overall cleanup
+const SESSION_QUIT_TIMEOUT_MS = 5000; // 5 seconds per session quit operation
 
 interface VersionConfig {
   name: string;
@@ -75,7 +77,7 @@ export class SeleniumMcpServer {
           // Wait for all cleanup operations with a timeout
           await Promise.race([
             Promise.allSettled(cleanupPromises),
-            new Promise(resolve => setTimeout(resolve, 10000)), // 10 second timeout
+            new Promise(resolve => setTimeout(resolve, CLEANUP_TIMEOUT_MS)),
           ]);
         }
 
@@ -85,8 +87,6 @@ export class SeleniumMcpServer {
         console.error('✅ Cleanup completed successfully');
       } catch (error) {
         console.error('❌ Error during cleanup:', error);
-      } finally {
-        this.isShuttingDown = false;
       }
     };
 
@@ -149,7 +149,7 @@ export class SeleniumMcpServer {
         // Add timeout to quit operation
         await Promise.race([
           webDriver.quit(),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Quit timeout')), 5000)),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Quit timeout')), SESSION_QUIT_TIMEOUT_MS)),
         ]);
       }
 
@@ -169,6 +169,10 @@ export class SeleniumMcpServer {
   }
 
   public async start(): Promise<void> {
+    if (this.isShuttingDown) {
+      throw new Error('Cannot start server while shutting down');
+    }
+
     try {
       console.error('🚀 Starting Selenium MCP Server...');
       console.error('✅ Selenium MCP Server initialized successfully');
@@ -201,7 +205,7 @@ export class SeleniumMcpServer {
         // Wait for cleanup with timeout
         await Promise.race([
           Promise.allSettled(cleanupPromises),
-          new Promise(resolve => setTimeout(resolve, 10000)), // 10 second timeout
+          new Promise(resolve => setTimeout(resolve, CLEANUP_TIMEOUT_MS)),
         ]);
       }
 
@@ -210,11 +214,13 @@ export class SeleniumMcpServer {
       this.stateManager.resetCurrentSession();
 
       console.error('✅ Selenium MCP Server stopped successfully');
+      // Note: Keep isShuttingDown = true to indicate the server has been stopped
+      // and should not accept new operations
     } catch (error) {
       console.error('❌ Error stopping Selenium MCP Server:', error);
+      // Only reset isShuttingDown if we want to allow recovery attempts
+      // For now, keep it true to prevent further operations
       throw error;
-    } finally {
-      this.isShuttingDown = false;
     }
   }
 

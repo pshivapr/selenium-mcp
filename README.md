@@ -1,6 +1,12 @@
 # Selenium MCP Server
 
-| [![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp) | ![npm version](https://img.shields.io/npm/v/selenium-webdriver-mcp) | ![npm downloads](https://img.shields.io/npm/dt/selenium-webdriver-mcp) | ![GitHub issues](https://img.shields.io/github/issues/pshivapr/selenium-mcp) |
+[![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
+
+![npm version](https://img.shields.io/npm/v/selenium-webdriver-mcp)
+
+![npm downloads](https://img.shields.io/npm/dt/selenium-webdriver-mcp)
+
+![GitHub issues](https://img.shields.io/github/issues/pshivapr/selenium-mcp)
 
 This is a server implementation that bridges the gap between MCP clients (AI assistants) and Selenium WebDriver. It exposes Selenium WebDriver's functionalities as MCP tools, allowing AI models to utilize them for tasks like:
 
@@ -11,9 +17,7 @@ This is a server implementation that bridges the gap between MCP clients (AI ass
 
 Built with TypeScript and modern ES modules, it offers type-safe browser automation capabilities through the Model Context Protocol.
 
-<a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
-  <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
-</a>
+[![Selenium MCP Server Badge](https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge)](https://glama.ai/mcp/servers/@pshivapr/selenium-mcp)
 
 ## 🚀 Overview
 
@@ -38,9 +42,9 @@ Configure your MCP client to connect to the Selenium server:
 ```json
 {
   "servers": {
-    "Selenium": {
+    "selenium-mcp": {
       "command": "npx",
-      "args": ["-y", "selenium-webdriver-mcp"]
+      "args": ["-y", "selenium-webdriver-mcp@latest"]
     }
   }
 }
@@ -57,11 +61,11 @@ Update your `mcp.json` in **VS Code** with below configuration
 ```json
 {
   "servers": {
-    "Selenium": {
+    "selenium-mcp": {
       "command": "npx",
       "args": [
         "-y",
-        "selenium-webdriver-mcp"
+        "selenium-webdriver-mcp@latest"
       ],
       "type": "stdio"
     }
@@ -92,13 +96,13 @@ After installation, the Selenium MCP server will be available for use with your 
 
 ```bash
 # For VS Code
-code --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
+code --add-mcp '{\"name\":\"selenium-mcp\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp@latest\"]}'
 
 ```
 
 ```bash
 # For VS Code Insiders
-vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
+vscode-insiders --add-mcp '{\"name\":\"selenium-mcp\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp@latest\"]}'
 ```
 
 ## To install the package using either npm, or Smithery
@@ -106,7 +110,7 @@ vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\":
 Using npm:
 
 ```bash
-npm install -g selenium-webdriver-mcp
+npm install -g selenium-webdriver-mcp@latest
 ```
 
 Using [Smithery](https://smithery.ai/server/@pshivapr/selenium-mcp)
@@ -124,9 +128,9 @@ Add to your Claude Desktop configuration:
 ```json
 {
   "mcpServers": {
-    "Selenium": {
+    "selenium-mcp": {
       "command": "npx",
-      "args": ["-y", "selenium-webdriver-mcp"]
+      "args": ["-y", "selenium-webdriver-mcp@latest"]
     }
   }
 }
@@ -303,7 +307,7 @@ node dist/index.js
 After building, you can use the server as a global command:
 
 ```bash
-npx selenium-webdriver-mcp
+npx selenium-webdriver-mcp@latest
 ```
 
 ## 📝 License

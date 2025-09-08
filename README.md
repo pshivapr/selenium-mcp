@@ -1,12 +1,12 @@
 # Selenium MCP Server
 
-[![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
-
 ![npm version](https://img.shields.io/npm/v/selenium-webdriver-mcp)
 
 ![npm downloads](https://img.shields.io/npm/dt/selenium-webdriver-mcp)
 
 ![GitHub issues](https://img.shields.io/github/issues/pshivapr/selenium-mcp)
+
+[![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
 
 This is a server implementation that bridges the gap between MCP clients (AI assistants) and Selenium WebDriver. It exposes Selenium WebDriver's functionalities as MCP tools, allowing AI models to utilize them for tasks like:
 
@@ -148,9 +148,11 @@ Add to your Claude Desktop configuration:
 
 An example prompt to start AI Agent interaction:
 
+`
 Using selenium mcp tools, navigate to <https://parabank.parasoft.com/> click the 'Register' link and signup using dynamic test data and click register. Then generate selenium tests in <YOUR_FAVOURITE_PROGRAMMING_LANGUAGE> using pom, create tests using cucumber features, steps and execute the tests.
+`
 
-Note: For more prompts, look at examples directory of the project
+**Note**: For more prompts, look at examples directory of the project
 
 ## 🛠️ MCP Available Tools
 
@@ -275,20 +277,20 @@ Note: For more prompts, look at examples directory of the project
 
 ### Getting Started
 
-1. **Clone the repository**:
+#### Clone the repository
 
    ```bash
    git clone https://github.com/pshivapr/selenium-mcp.git
    cd selenium-mcp
    ```
 
-2. **Install dependencies**:
+#### Install dependencies
 
    ```bash
    npm install
    ```
 
-3. **Build the project**:
+#### Build the project
 
    ```bash
    npm run build
@@ -338,7 +340,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.3.2** - Selenium MCP Server
+- **0.3.3** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Safari, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities

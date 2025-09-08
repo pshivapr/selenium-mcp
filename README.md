@@ -17,7 +17,9 @@ This is a server implementation that bridges the gap between MCP clients (AI ass
 
 In essence, the selenium webdriver mcp setup allows AI assistants to leverage the power of Selenium Webdriver for web automation, by communicating with a dedicated Selenium MCP server via the Model Context Protocol. This facilitates tasks such as automated web interactions, testing, and data extraction, all controlled by AI.
 
-[![Selenium MCP Server Badge](https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge)](https://glama.ai/mcp/servers/@pshivapr/selenium-mcp)
+<a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
+</a>
 
 ## 🚀 Overview
 

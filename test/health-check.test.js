@@ -66,7 +66,7 @@ describe('Selenium MCP Server - Health Check', () => {
     assert.strictEqual(stats.sessions.currentSession, null);
   });
 
-  test('should maintain health status after start', async () => {
+  test('should maintain healthy status after start', async () => {
     await server.start();
 
     const health = server.getHealthStatus();
@@ -74,12 +74,13 @@ describe('Selenium MCP Server - Health Check', () => {
     assert.strictEqual(health.activeSessions, 0);
   });
 
-  test('should maintain health status after stop', async () => {
+  test('should become unhealthy after stop', async () => {
     await server.start();
     await server.stop();
 
     const health = server.getHealthStatus();
-    assert.strictEqual(health.status, 'healthy');
+    // After stopping, server should be unhealthy to prevent further operations
+    assert.strictEqual(health.status, 'unhealthy');
     assert.strictEqual(health.activeSessions, 0);
   });
 
@@ -88,14 +89,17 @@ describe('Selenium MCP Server - Health Check', () => {
     await server.start();
     assert.strictEqual(server.getHealthStatus().status, 'healthy');
     await server.stop();
+    assert.strictEqual(server.getHealthStatus().status, 'unhealthy');
 
-    // Second cycle
-    await server.start();
-    assert.strictEqual(server.getHealthStatus().status, 'healthy');
-    await server.stop();
+    // Create a new server for second cycle since stopped servers can't restart
+    const server2 = createSeleniumMcpServer();
 
-    const finalHealth = server.getHealthStatus();
-    assert.strictEqual(finalHealth.status, 'healthy');
+    await server2.start();
+    assert.strictEqual(server2.getHealthStatus().status, 'healthy');
+    await server2.stop();
+
+    const finalHealth = server2.getHealthStatus();
+    assert.strictEqual(finalHealth.status, 'unhealthy');
   });
 
   test('should show increasing uptime over time', async () => {
@@ -132,7 +136,7 @@ describe('Selenium MCP Server - Health Check', () => {
     });
   });
 
-  test('should create healthy server with factory function', () => {
+  test('should create healthy server with factory function', async () => {
     const testServer = createSeleniumMcpServer();
 
     const health = testServer.getHealthStatus();
@@ -140,12 +144,12 @@ describe('Selenium MCP Server - Health Check', () => {
     assert.strictEqual(health.activeSessions, 0);
 
     // Cleanup
-    testServer.stop().catch(() => {
+    await testServer.stop().catch(() => {
       // Ignore cleanup errors
     });
   });
 
-  test('should create healthy server with custom options', () => {
+  test('should create healthy server with custom options', async () => {
     const testServer = createSeleniumMcpServer({
       autoStart: false,
       shutdownTimeout: 2000,
@@ -155,8 +159,42 @@ describe('Selenium MCP Server - Health Check', () => {
     assert.strictEqual(health.status, 'healthy');
 
     // Cleanup
-    testServer.stop().catch(() => {
+    await testServer.stop().catch(() => {
       // Ignore cleanup errors
     });
+  });
+
+  test('should prevent starting server after shutdown', async () => {
+    await server.start();
+    await server.stop();
+
+    // Trying to start a stopped server should throw an error
+    try {
+      await server.start();
+      assert.fail('Should have thrown an error when trying to start a stopped server');
+    } catch (error) {
+      assert.ok(error.message.includes('Cannot start server while shutting down'));
+    }
+  });
+
+  test('should track shutdown state correctly', async () => {
+    // Initially not shutting down
+    assert.strictEqual(server.getStats().server.isShuttingDown, false);
+
+    await server.start();
+    assert.strictEqual(server.getStats().server.isShuttingDown, false);
+
+    await server.stop();
+    // After stop, should be in shutdown state
+    assert.strictEqual(server.getStats().server.isShuttingDown, true);
+  });
+
+  test('should handle double stop gracefully', async () => {
+    await server.start();
+    await server.stop();
+
+    // Second stop should not throw
+    await server.stop();
+    assert.strictEqual(server.getHealthStatus().status, 'unhealthy');
   });
 });

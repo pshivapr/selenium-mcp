@@ -1,10 +1,17 @@
 import { test, describe, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert';
-import { readFileSync } from 'fs';
 import { createSeleniumMcpServer } from '../dist/server.js';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-// Read version from central config
-const versionConfig = JSON.parse(readFileSync('./version.config.json', 'utf8'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const configPath = join(__dirname, '..', 'version.config.json');
+
+let versionConfig;
+const configContent = readFileSync(configPath, 'utf8');
+versionConfig = JSON.parse(configContent);
 
 describe('Selenium MCP Server - Health Check', () => {
   let server;

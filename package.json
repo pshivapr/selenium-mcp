@@ -1,6 +1,6 @@
 {
   "name": "selenium-webdriver-mcp",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Selenium Tools for MCP",
   "type": "module",
   "bin": {
@@ -18,9 +18,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc && npm run copy:files",
-    "copy:files": "node -e \"const fs=require('fs'); fs.copyFileSync('version.config.json', 'dist/version.config.json'); fs.copyFileSync('Quick_Start_VSCode_Setup.md', 'dist/Quick_Start_VSCode_Setup.md');\"",
-    "copy": "cp version.config.json dist/ && cp Quick_Start_VSCode_Setup.md dist/",
+    "build": "tsc && npm run copy:config",
+    "copy:config": "node -e \"const fs=require('fs'); fs.copyFileSync('version.config.json', 'dist/version.config.json');\"",
+    "copy": "cp version.config.json dist/",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts --exec tsx",
     "clean": "rm -rf dist",

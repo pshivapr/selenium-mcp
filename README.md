@@ -148,9 +148,7 @@ Add to your Claude Desktop configuration:
 
 An example prompt to start AI Agent interaction:
 
-`
-Using selenium mcp tools, navigate to <https://parabank.parasoft.com/> click the 'Register' link and signup using dynamic test data and click register. Then generate selenium tests in <YOUR_FAVOURITE_PROGRAMMING_LANGUAGE> using pom, create tests using cucumber features, steps and execute the tests.
-`
+`Using selenium mcp tools, navigate to <https://parabank.parasoft.com/> click the 'Register' link and signup using dynamic test data and click register. Then generate selenium tests in <YOUR_FAVOURITE_PROGRAMMING_LANGUAGE> using pom, create tests using cucumber features, steps and execute the tests.`
 
 **Note**: For more prompts, look at examples directory of the project
 
@@ -340,7 +338,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.3.3** - Selenium MCP Server
+- **0.3.4** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Safari, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities

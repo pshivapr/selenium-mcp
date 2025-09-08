@@ -24,6 +24,7 @@ export class SeleniumMcpServer {
   private readonly server: McpServer;
   private readonly stateManager: StateManager;
   private readonly startTime: number;
+  private isShuttingDown: boolean = false;
 
   constructor() {
     this.server = new McpServer({
@@ -47,60 +48,93 @@ export class SeleniumMcpServer {
   }
 
   private setupCleanup(): void {
-    const cleanup = async (): Promise<void> => {
+    const cleanup = async (signal?: string): Promise<void> => {
+      if (this.isShuttingDown) {
+        console.error('⚠️  Shutdown already in progress...');
+        return;
+      }
+
+      this.isShuttingDown = true;
+
       try {
+        if (signal) {
+          console.error(`🛑 ${signal} received, initiating graceful shutdown...`);
+        } else {
+          console.error('🛑 Initiating graceful shutdown...');
+        }
+
         console.error('🧹 Cleaning up browser sessions...');
         const state = this.stateManager.getState();
 
-        const cleanupPromises: Promise<void>[] = [];
-        for (const [sessionId, driver] of state.drivers) {
-          cleanupPromises.push(this.cleanupSession(sessionId, driver));
-        }
+        if (state.drivers.size > 0) {
+          const cleanupPromises: Promise<void>[] = [];
+          for (const [sessionId, driver] of state.drivers) {
+            cleanupPromises.push(this.cleanupSession(sessionId, driver));
+          }
 
-        await Promise.allSettled(cleanupPromises);
+          // Wait for all cleanup operations with a timeout
+          await Promise.race([
+            Promise.allSettled(cleanupPromises),
+            new Promise(resolve => setTimeout(resolve, 10000)), // 10 second timeout
+          ]);
+        }
 
         this.stateManager.clearDrivers();
         this.stateManager.resetCurrentSession();
 
-        console.error('✅ Cleanup completed');
+        console.error('✅ Cleanup completed successfully');
       } catch (error) {
         console.error('❌ Error during cleanup:', error);
       } finally {
-        process.exit(0);
+        this.isShuttingDown = false;
       }
     };
 
-    // Register cleanup handlers
+    // Register cleanup handlers - don't exit process in cleanup
     process.on('SIGTERM', () => {
-      console.error('🛑 SIGTERM received, initiating graceful shutdown...');
-      cleanup().catch((error: unknown) => {
-        console.error('Error during SIGTERM cleanup:', error);
-        process.exit(1);
-      });
+      cleanup('SIGTERM')
+        .then(() => {
+          process.exit(0);
+        })
+        .catch((error: unknown) => {
+          console.error('Error during SIGTERM cleanup:', error);
+          process.exit(1);
+        });
     });
 
     process.on('SIGINT', () => {
-      console.error('🛑 SIGINT received, initiating graceful shutdown...');
-      cleanup().catch((error: unknown) => {
-        console.error('Error during SIGINT cleanup:', error);
-        process.exit(1);
-      });
+      cleanup('SIGINT')
+        .then(() => {
+          process.exit(0);
+        })
+        .catch((error: unknown) => {
+          console.error('Error during SIGINT cleanup:', error);
+          process.exit(1);
+        });
     });
 
     // Handle uncaught exceptions
     process.on('uncaughtException', (error: Error) => {
       console.error('💥 Uncaught Exception:', error);
-      cleanup().catch(() => {
-        process.exit(1);
-      });
+      cleanup('uncaughtException')
+        .then(() => {
+          process.exit(1);
+        })
+        .catch(() => {
+          process.exit(1);
+        });
     });
 
     // Handle unhandled promise rejections
     process.on('unhandledRejection', (reason: unknown, promise: Promise<unknown>) => {
       console.error('🚫 Unhandled Rejection at:', promise, 'reason:', reason);
-      cleanup().catch(() => {
-        process.exit(1);
-      });
+      cleanup('unhandledRejection')
+        .then(() => {
+          process.exit(1);
+        })
+        .catch(() => {
+          process.exit(1);
+        });
     });
   }
 
@@ -111,12 +145,18 @@ export class SeleniumMcpServer {
       // Type guard to ensure driver has quit method
       if (driver && typeof driver === 'object' && 'quit' in driver) {
         const webDriver = driver as { quit: () => Promise<void> };
-        await webDriver.quit();
+
+        // Add timeout to quit operation
+        await Promise.race([
+          webDriver.quit(),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Quit timeout')), 5000)),
+        ]);
       }
 
       console.error(`✅ Session ${sessionId} cleaned up successfully`);
     } catch (error) {
       console.error(`❌ Error closing browser session ${sessionId}:`, error);
+      // Don't throw - just log and continue with other cleanups
     }
   }
 
@@ -131,8 +171,6 @@ export class SeleniumMcpServer {
   public async start(): Promise<void> {
     try {
       console.error('🚀 Starting Selenium MCP Server...');
-      // If McpServer requires any initialization, call it here.
-      // Currently, McpServer does not have a start method.
       console.error('✅ Selenium MCP Server initialized successfully');
     } catch (error) {
       console.error('❌ Failed to start Selenium MCP Server:', error);
@@ -141,31 +179,42 @@ export class SeleniumMcpServer {
   }
 
   public async stop(): Promise<void> {
+    if (this.isShuttingDown) {
+      console.error('⚠️  Server is already shutting down...');
+      return;
+    }
+
     try {
+      this.isShuttingDown = true;
       console.error('🛑 Stopping Selenium MCP Server...');
 
       // Clean up all sessions
       const state = this.stateManager.getState();
-      const cleanupPromises: Promise<void>[] = [];
 
-      for (const [sessionId, driver] of state.drivers) {
-        cleanupPromises.push(this.cleanupSession(sessionId, driver));
+      if (state.drivers.size > 0) {
+        const cleanupPromises: Promise<void>[] = [];
+
+        for (const [sessionId, driver] of state.drivers) {
+          cleanupPromises.push(this.cleanupSession(sessionId, driver));
+        }
+
+        // Wait for cleanup with timeout
+        await Promise.race([
+          Promise.allSettled(cleanupPromises),
+          new Promise(resolve => setTimeout(resolve, 10000)), // 10 second timeout
+        ]);
       }
-
-      await Promise.allSettled(cleanupPromises);
 
       // Clear state
       this.stateManager.clearDrivers();
       this.stateManager.resetCurrentSession();
 
-      // If the server has a stop method, call it; otherwise, skip stopping
-      // (McpServer does not have a stop method in the current SDK)
-      // If you need to implement custom shutdown logic, add it here.
-
       console.error('✅ Selenium MCP Server stopped successfully');
     } catch (error) {
       console.error('❌ Error stopping Selenium MCP Server:', error);
       throw error;
+    } finally {
+      this.isShuttingDown = false;
     }
   }
 
@@ -179,7 +228,7 @@ export class SeleniumMcpServer {
     const state = this.stateManager.getState();
 
     return {
-      status: 'healthy',
+      status: this.isShuttingDown ? 'unhealthy' : 'healthy',
       activeSessions: state.drivers.size,
       serverName: versionConfig.name,
       version: versionConfig.version,
@@ -211,7 +260,7 @@ export class SeleniumMcpServer {
         version: versionConfig.version,
         uptime: process.uptime(),
         memoryUsage: process.memoryUsage(),
-        isShuttingDown: false,
+        isShuttingDown: this.isShuttingDown,
       },
       sessions: {
         total: state.drivers.size,

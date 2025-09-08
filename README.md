@@ -1,6 +1,12 @@
 # Selenium MCP Server
 
-| [![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp) | ![npm version](https://img.shields.io/npm/v/selenium-webdriver-mcp) | ![npm downloads](https://img.shields.io/npm/dt/selenium-webdriver-mcp) | ![GitHub issues](https://img.shields.io/github/issues/pshivapr/selenium-mcp) |
+[![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
+
+![npm version](https://img.shields.io/npm/v/selenium-webdriver-mcp)
+
+![npm downloads](https://img.shields.io/npm/dt/selenium-webdriver-mcp)
+
+![GitHub issues](https://img.shields.io/github/issues/pshivapr/selenium-mcp)
 
 This is a server implementation that bridges the gap between MCP clients (AI assistants) and Selenium WebDriver. It exposes Selenium WebDriver's functionalities as MCP tools, allowing AI models to utilize them for tasks like:
 
@@ -9,7 +15,7 @@ This is a server implementation that bridges the gap between MCP clients (AI ass
 - Web scraping and automated testing
 - Advanced operations like screenshots, cookie management, and JavaScript execution
 
-Built with TypeScript and modern ES modules, it offers type-safe browser automation capabilities through the Model Context Protocol.
+In essence, the selenium webdriver mcp setup allows AI assistants to leverage the power of Selenium Webdriver for web automation, by communicating with a dedicated Selenium MCP server via the Model Context Protocol. This facilitates tasks such as automated web interactions, testing, and data extraction, all controlled by AI.
 
 <a href="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge" />
@@ -18,6 +24,8 @@ Built with TypeScript and modern ES modules, it offers type-safe browser automat
 ## 🚀 Overview
 
 A Model Context Protocol (MCP) server for [Selenium](https://www.selenium.dev/) that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
+
+Built with TypeScript and modern ES modules, it offers type-safe browser automation capabilities through the Model Context Protocol.
 
 ## ✨ Key Features
 
@@ -38,9 +46,9 @@ Configure your MCP client to connect to the Selenium server:
 ```json
 {
   "servers": {
-    "Selenium": {
+    "selenium-mcp": {
       "command": "npx",
-      "args": ["-y", "selenium-webdriver-mcp"]
+      "args": ["-y", "selenium-webdriver-mcp@latest"]
     }
   }
 }
@@ -57,11 +65,11 @@ Update your `mcp.json` in **VS Code** with below configuration
 ```json
 {
   "servers": {
-    "Selenium": {
+    "selenium-mcp": {
       "command": "npx",
       "args": [
         "-y",
-        "selenium-webdriver-mcp"
+        "selenium-webdriver-mcp@latest"
       ],
       "type": "stdio"
     }
@@ -92,13 +100,13 @@ After installation, the Selenium MCP server will be available for use with your 
 
 ```bash
 # For VS Code
-code --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
+code --add-mcp '{\"name\":\"selenium-mcp\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp@latest\"]}'
 
 ```
 
 ```bash
 # For VS Code Insiders
-vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp\"]}'
+vscode-insiders --add-mcp '{\"name\":\"selenium-mcp\",\"command\": \"npx\",\"args\": [\"selenium-webdriver-mcp@latest\"]}'
 ```
 
 ## To install the package using either npm, or Smithery
@@ -106,7 +114,7 @@ vscode-insiders --add-mcp '{\"name\":\"Selenium\",\"command\": \"npx\",\"args\":
 Using npm:
 
 ```bash
-npm install -g selenium-webdriver-mcp
+npm install -g selenium-webdriver-mcp@latest
 ```
 
 Using [Smithery](https://smithery.ai/server/@pshivapr/selenium-mcp)
@@ -124,9 +132,9 @@ Add to your Claude Desktop configuration:
 ```json
 {
   "mcpServers": {
-    "Selenium": {
+    "selenium-mcp": {
       "command": "npx",
-      "args": ["-y", "selenium-webdriver-mcp"]
+      "args": ["-y", "selenium-webdriver-mcp@latest"]
     }
   }
 }
@@ -135,6 +143,14 @@ Add to your Claude Desktop configuration:
 ## Screenshot
 
 ![Selenium + Claude](images/Claude-example.png)
+
+## Prompts
+
+An example prompt to start AI Agent interaction:
+
+Using selenium mcp tools, navigate to <https://parabank.parasoft.com/> click the 'Register' link and signup using dynamic test data and click register. Then generate selenium tests in <YOUR_FAVOURITE_PROGRAMMING_LANGUAGE> using pom, create tests using cucumber features, steps and execute the tests.
+
+Note: For more prompts, look at examples directory of the project
 
 ## 🛠️ MCP Available Tools
 
@@ -303,7 +319,7 @@ node dist/index.js
 After building, you can use the server as a global command:
 
 ```bash
-npx selenium-webdriver-mcp
+npx selenium-webdriver-mcp@latest
 ```
 
 ## 📝 License
@@ -322,7 +338,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📊 Version History
 
-- **0.3.0** - Selenium MCP Server
+- **0.3.2** - Selenium MCP Server
   - Multi-browser support (Chrome, Firefox, Safari, Edge)
   - Complete element interaction toolset
   - Advanced action capabilities

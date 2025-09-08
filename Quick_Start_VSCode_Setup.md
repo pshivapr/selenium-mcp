@@ -26,8 +26,8 @@ Create a new directory and initialize it with npm
 1. Open the VS Code Command Palette (`Cmd/Ctrl + Shift + P`).
 2. Type **"MCP: Add Server"**.
 3. Choose **"Command (stdio)"**.
-4. Enter the command: `npx -y selenium-webdriver-mcp`.
-5. Give it a name like `Selenium`.
+4. Enter the command: `npx -y selenium-webdriver-mcp@latest`.
+5. Give it a name like `selenium-mcp`.
 6. Choose **Global** for all projects or Choose **Workspace** for just this project setup.
 
 This creates a `.vscode/mcp.json` file in your project:
@@ -35,11 +35,11 @@ This creates a `.vscode/mcp.json` file in your project:
 ```json
 {
   "servers": {
-    "Selenium": {
+    "selenium-mcp": {
       "command": "npx",
       "args": [
         "-y",
-        "selenium-webdriver-mcp"
+        "selenium-webdriver-mcp@latest"
       ],
       "type": "stdio"
     }

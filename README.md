@@ -15,13 +15,15 @@ This is a server implementation that bridges the gap between MCP clients (AI ass
 - Web scraping and automated testing
 - Advanced operations like screenshots, cookie management, and JavaScript execution
 
-Built with TypeScript and modern ES modules, it offers type-safe browser automation capabilities through the Model Context Protocol.
+In essence, the selenium webdriver mcp setup allows AI assistants to leverage the power of Selenium Webdriver for web automation, by communicating with a dedicated Selenium MCP server via the Model Context Protocol. This facilitates tasks such as automated web interactions, testing, and data extraction, all controlled by AI.
 
 [![Selenium MCP Server Badge](https://glama.ai/mcp/servers/@pshivapr/selenium-mcp/badge)](https://glama.ai/mcp/servers/@pshivapr/selenium-mcp)
 
 ## 🚀 Overview
 
 A Model Context Protocol (MCP) server for [Selenium](https://www.selenium.dev/) that provides comprehensive Selenium WebDriver automation tools for AI assistants and applications. This server enables automated web browser interactions, testing, and scraping through a standardized interface.
+
+Built with TypeScript and modern ES modules, it offers type-safe browser automation capabilities through the Model Context Protocol.
 
 ## ✨ Key Features
 
@@ -139,6 +141,14 @@ Add to your Claude Desktop configuration:
 ## Screenshot
 
 ![Selenium + Claude](images/Claude-example.png)
+
+## Prompts
+
+An example prompt to start AI Agent interaction:
+
+Using selenium mcp tools, navigate to <https://parabank.parasoft.com/> click the 'Register' link and signup using dynamic test data and click register. Then generate selenium tests in <YOUR_FAVOURITE_PROGRAMMING_LANGUAGE> using pom, create tests using cucumber features, steps and execute the tests.
+
+Note: For more prompts, look at examples directory of the project
 
 ## 🛠️ MCP Available Tools
 

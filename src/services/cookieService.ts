@@ -30,7 +30,9 @@ export class CookieService {
     const cookieObj: any = { name, value };
 
     attributes.forEach(attr => {
-      const [attrName, attrValue] = attr.split('=');
+      const parts = attr.split('=');
+      const attrName = parts[0];
+      const attrValue = parts[1];
       if (!attrName) return;
       switch (attrName.toLowerCase()) {
         case 'name':

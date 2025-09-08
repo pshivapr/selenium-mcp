@@ -14,6 +14,7 @@ RUN npm install --ignore-scripts
 COPY src ./src
 COPY version.config.json ./
 COPY tsconfig.json ./
+COPY Quick_Start_VSCode_Setup.md ./
 
 # Build the project
 RUN npm run build

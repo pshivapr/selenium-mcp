@@ -3,9 +3,22 @@ import { StateManager } from './utils/helpers.js';
 import { registerAllTools } from './tools/index.js';
 import { registerBrowserStatusResource } from './resources/browserStatus.js';
 import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-// Read version from central config
-const versionConfig = JSON.parse(readFileSync('./version.config.json', 'utf8'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const configPath = join(__dirname, '..', 'version.config.json');
+
+interface VersionConfig {
+  name: string;
+  version: string;
+  displayName?: string;
+}
+
+let versionConfig: VersionConfig;
+const configContent = readFileSync(configPath, 'utf8');
+versionConfig = JSON.parse(configContent);
 
 export class SeleniumMcpServer {
   private readonly server: McpServer;

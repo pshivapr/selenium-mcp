@@ -5,7 +5,7 @@ import { registerBrowserStatusResource } from './resources/browserStatus.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { logger } from './utils/logger.js';
+import { Logger } from './utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,33 +40,33 @@ export class SeleniumMcpServer {
 
       this.stateManager = new StateManager();
       this.startTime = Date.now();
-      logger.debug('✅ SeleniumMcpServer constructor completed');
+      Logger.debug('✅ SeleniumMcpServer constructor completed');
     } catch (error) {
-      logger.error('❌ Error in SeleniumMcpServer constructor:', error);
+      Logger.error('❌ Error in SeleniumMcpServer constructor:', error);
       throw error;
     }
   }
 
   public initialize(): void {
     try {
-      logger.info('🔧 Initializing Selenium MCP Server...');
+      Logger.info('🔧 Initializing Selenium MCP Server...');
 
       // Register all tools
       registerAllTools(this.server, this.stateManager);
-      logger.debug('✅ Tools registered');
+      Logger.debug('✅ Tools registered');
 
       // Register resources
       registerBrowserStatusResource(this.server, this.stateManager);
-      logger.debug('✅ Resources registered');
+      Logger.debug('✅ Resources registered');
 
       // Setup cleanup handlers
       this.setupCleanup();
-      logger.debug('✅ Cleanup handlers registered');
+      Logger.debug('✅ Cleanup handlers registered');
 
       this.isInitialized = true;
-      logger.info('✅ Server initialization completed');
+      Logger.info('✅ Server initialization completed');
     } catch (error) {
-      logger.error('❌ Error during server initialization:', error);
+      Logger.error('❌ Error during server initialization:', error);
       throw error;
     }
   }
@@ -74,7 +74,7 @@ export class SeleniumMcpServer {
   private setupCleanup(): void {
     const cleanup = async (signal?: string): Promise<void> => {
       if (this.isShuttingDown) {
-        logger.warn('⚠️  Shutdown already in progress...');
+        Logger.warn('⚠️  Shutdown already in progress...');
         return;
       }
 
@@ -82,12 +82,12 @@ export class SeleniumMcpServer {
 
       try {
         if (signal) {
-          logger.info(`🛑 ${signal} received, initiating graceful shutdown...`);
+          Logger.info(`🛑 ${signal} received, initiating graceful shutdown...`);
         } else {
-          logger.info('🛑 Initiating graceful shutdown...');
+          Logger.info('🛑 Initiating graceful shutdown...');
         }
 
-        logger.info('🧹 Cleaning up browser sessions...');
+        Logger.info('🧹 Cleaning up browser sessions...');
         const state = this.stateManager.getState();
 
         if (state.drivers.size > 0) {
@@ -106,9 +106,9 @@ export class SeleniumMcpServer {
         this.stateManager.clearDrivers();
         this.stateManager.resetCurrentSession();
 
-        logger.info('✅ Cleanup completed successfully');
+        Logger.info('✅ Cleanup completed successfully');
       } catch (error) {
-        logger.error('❌ Error during cleanup:', error);
+        Logger.error('❌ Error during cleanup:', error);
       }
     };
 
@@ -119,7 +119,7 @@ export class SeleniumMcpServer {
           process.exit(0);
         })
         .catch((error: unknown) => {
-          logger.error('Error during SIGTERM cleanup:', error);
+          Logger.error('Error during SIGTERM cleanup:', error);
           process.exit(1);
         });
     });
@@ -130,14 +130,14 @@ export class SeleniumMcpServer {
           process.exit(0);
         })
         .catch((error: unknown) => {
-          logger.error('Error during SIGINT cleanup:', error);
+          Logger.error('Error during SIGINT cleanup:', error);
           process.exit(1);
         });
     });
 
     // Handle uncaught exceptions
     process.on('uncaughtException', (error: Error) => {
-      logger.error('💥 Uncaught Exception:', error);
+      Logger.error('💥 Uncaught Exception:', error);
       cleanup('uncaughtException')
         .then(() => {
           process.exit(1);
@@ -149,7 +149,7 @@ export class SeleniumMcpServer {
 
     // Handle unhandled promise rejections
     process.on('unhandledRejection', (reason: unknown, promise: Promise<unknown>) => {
-      logger.error('🚫 Unhandled Rejection at:', promise, 'reason:', reason);
+      Logger.error('🚫 Unhandled Rejection at:', promise, 'reason:', reason);
       cleanup('unhandledRejection')
         .then(() => {
           process.exit(1);
@@ -162,7 +162,7 @@ export class SeleniumMcpServer {
 
   private async cleanupSession(sessionId: string, driver: unknown): Promise<void> {
     try {
-      logger.debug(`🧹 Cleaning up session: ${sessionId}`);
+      Logger.debug(`🧹 Cleaning up session: ${sessionId}`);
 
       // Type guard to ensure driver has quit method
       if (driver && typeof driver === 'object' && 'quit' in driver) {
@@ -175,9 +175,9 @@ export class SeleniumMcpServer {
         ]);
       }
 
-      logger.debug(`✅ Session ${sessionId} cleaned up successfully`);
+      Logger.debug(`✅ Session ${sessionId} cleaned up successfully`);
     } catch (error) {
-      logger.error(`❌ Error closing browser session ${sessionId}:`, error);
+      Logger.error(`❌ Error closing browser session ${sessionId}:`, error);
       // Don't throw - just log and continue with other cleanups
     }
   }
@@ -204,23 +204,23 @@ export class SeleniumMcpServer {
     }
 
     try {
-      logger.info('🚀 Starting Selenium MCP Server...');
-      logger.info('✅ Selenium MCP Server started successfully');
+      Logger.info('🚀 Starting Selenium MCP Server...');
+      Logger.info('✅ Selenium MCP Server started successfully');
     } catch (error) {
-      logger.error('❌ Failed to start Selenium MCP Server:', error);
+      Logger.error('❌ Failed to start Selenium MCP Server:', error);
       throw error;
     }
   }
 
   public async stop(): Promise<void> {
     if (this.isShuttingDown) {
-      logger.warn('⚠️  Server is already shutting down...');
+      Logger.warn('⚠️  Server is already shutting down...');
       return;
     }
 
     try {
       this.isShuttingDown = true;
-      logger.info('🛑 Stopping Selenium MCP Server...');
+      Logger.info('🛑 Stopping Selenium MCP Server...');
 
       // Clean up all sessions
       const state = this.stateManager.getState();
@@ -243,9 +243,9 @@ export class SeleniumMcpServer {
       this.stateManager.clearDrivers();
       this.stateManager.resetCurrentSession();
 
-      logger.info('✅ Selenium MCP Server stopped successfully');
+      Logger.info('✅ Selenium MCP Server stopped successfully');
     } catch (error) {
-      logger.error('❌ Error stopping Selenium MCP Server:', error);
+      Logger.error('❌ Error stopping Selenium MCP Server:', error);
       throw error;
     }
   }
@@ -310,23 +310,23 @@ export function createSeleniumMcpServer(options?: {
   shutdownTimeout?: number;
 }): SeleniumMcpServer {
   try {
-    logger.info('🏗️  Creating Selenium MCP Server...');
+    Logger.info('🏗️  Creating Selenium MCP Server...');
     const server = new SeleniumMcpServer();
 
-    logger.debug('🔧 Initializing server...');
+    Logger.debug('🔧 Initializing server...');
     server.initialize();
 
     if (options?.autoStart) {
       server.start().catch((error: unknown) => {
-        logger.error('Failed to auto-start server:', error);
+        Logger.error('Failed to auto-start server:', error);
         process.exit(1);
       });
     }
 
-    logger.info('✅ Selenium MCP Server created successfully');
+    Logger.info('✅ Selenium MCP Server created successfully');
     return server;
   } catch (error) {
-    logger.error('❌ Failed to create Selenium MCP Server:', error);
+    Logger.error('❌ Failed to create Selenium MCP Server:', error);
     throw error;
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "selenium-webdriver-mcp",
-  "version": "0.3.9",
+  "version": "0.4.0",
   "mcpName": "io.github.pshivapr/selenium-mcp",
   "description": "Selenium Tools for MCP",
   "type": "module",
@@ -40,7 +40,8 @@
     "test": "npm run build && node --test test/**/*.test.js",
     "test:watch": "npm run build && node --test --watch test/**/*.test.js",
     "test:health": "npm run build && node --test test/health-check.test.js",
-    "version:sync": "node scripts/sync-version.js"
+    "version:sync": "node scripts/sync-version.js",
+    "cleanup": "node scripts/cleanup.js"
   },
   "lint-staged": {
     "*.{ts,js}": [

@@ -27,29 +27,44 @@ export class SeleniumMcpServer {
   private readonly stateManager: StateManager;
   private readonly startTime: number;
   private isShuttingDown: boolean = false;
+  private isInitialized: boolean = false;
 
   constructor() {
-    this.server = new McpServer({
-      name: versionConfig.name,
-      version: versionConfig.version,
-    });
+    try {
+      this.server = new McpServer({
+        name: versionConfig.name,
+        version: versionConfig.version,
+      });
 
-    this.stateManager = new StateManager();
-    this.startTime = Date.now();
+      this.stateManager = new StateManager();
+      this.startTime = Date.now();
+      console.error(`✅ SeleniumMcpServer constructor completed`);
+    } catch (error) {
+      console.error('❌ Error in SeleniumMcpServer constructor:', error);
+      throw error;
+    }
   }
 
   public initialize(): void {
     try {
+      console.error('🔧 Initializing Selenium MCP Server...');
+
       // Register all tools
       registerAllTools(this.server, this.stateManager);
+      console.error('✅ Tools registered');
 
       // Register resources
       registerBrowserStatusResource(this.server, this.stateManager);
+      console.error('✅ Resources registered');
 
       // Setup cleanup handlers
       this.setupCleanup();
+      console.error('✅ Cleanup handlers registered');
+
+      this.isInitialized = true;
+      console.error('✅ Server initialization completed');
     } catch (error) {
-      console.error('Error during server initialization:', error);
+      console.error('❌ Error during server initialization:', error);
       throw error;
     }
   }
@@ -173,14 +188,22 @@ export class SeleniumMcpServer {
     return this.stateManager;
   }
 
+  public isReady(): boolean {
+    return this.isInitialized && !this.isShuttingDown;
+  }
+
   public async start(): Promise<void> {
     if (this.isShuttingDown) {
       throw new Error('Cannot start server while shutting down');
     }
 
+    if (!this.isInitialized) {
+      throw new Error('Server must be initialized before starting');
+    }
+
     try {
       console.error('🚀 Starting Selenium MCP Server...');
-      console.error('✅ Selenium MCP Server initialized successfully');
+      console.error('✅ Selenium MCP Server started successfully');
     } catch (error) {
       console.error('❌ Failed to start Selenium MCP Server:', error);
       throw error;
@@ -219,12 +242,8 @@ export class SeleniumMcpServer {
       this.stateManager.resetCurrentSession();
 
       console.error('✅ Selenium MCP Server stopped successfully');
-      // Note: Keep isShuttingDown = true to indicate the server has been stopped
-      // and should not accept new operations
     } catch (error) {
       console.error('❌ Error stopping Selenium MCP Server:', error);
-      // Only reset isShuttingDown if we want to allow recovery attempts
-      // For now, keep it true to prevent further operations
       throw error;
     }
   }
@@ -239,7 +258,7 @@ export class SeleniumMcpServer {
     const state = this.stateManager.getState();
 
     return {
-      status: this.isShuttingDown ? 'unhealthy' : 'healthy',
+      status: this.isInitialized && !this.isShuttingDown ? 'healthy' : 'unhealthy',
       activeSessions: state.drivers.size,
       serverName: versionConfig.name,
       version: versionConfig.version,
@@ -288,17 +307,26 @@ export function createSeleniumMcpServer(options?: {
   enableHealthLogging?: boolean;
   shutdownTimeout?: number;
 }): SeleniumMcpServer {
-  const server = new SeleniumMcpServer();
-  server.initialize();
+  try {
+    console.error('🏗️  Creating Selenium MCP Server...');
+    const server = new SeleniumMcpServer();
 
-  if (options?.autoStart) {
-    server.start().catch((error: unknown) => {
-      console.error('Failed to auto-start server:', error);
-      process.exit(1);
-    });
+    console.error('🔧 Initializing server...');
+    server.initialize();
+
+    if (options?.autoStart) {
+      server.start().catch((error: unknown) => {
+        console.error('Failed to auto-start server:', error);
+        process.exit(1);
+      });
+    }
+
+    console.error('✅ Selenium MCP Server created successfully');
+    return server;
+  } catch (error) {
+    console.error('❌ Failed to create Selenium MCP Server:', error);
+    throw error;
   }
-
-  return server;
 }
 
 export default SeleniumMcpServer;

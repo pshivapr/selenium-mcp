@@ -6,3 +6,5 @@ node_modules/
 .env
 sessions/
 .mcpregistry*
+scripts/cleanup.js
+.github/workflows/*mcp.yml

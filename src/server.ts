@@ -39,14 +39,19 @@ export class SeleniumMcpServer {
   }
 
   public initialize(): void {
-    // Register all tools
-    registerAllTools(this.server, this.stateManager);
+    try {
+      // Register all tools
+      registerAllTools(this.server, this.stateManager);
 
-    // Register resources
-    registerBrowserStatusResource(this.server, this.stateManager);
+      // Register resources
+      registerBrowserStatusResource(this.server, this.stateManager);
 
-    // Setup cleanup handlers
-    this.setupCleanup();
+      // Setup cleanup handlers
+      this.setupCleanup();
+    } catch (error) {
+      console.error('Error during server initialization:', error);
+      throw error;
+    }
   }
 
   private setupCleanup(): void {

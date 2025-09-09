@@ -1,60 +1,37 @@
-export enum LogLevel {
-  DEBUG = 0,
-  INFO = 1,
-  WARN = 2,
-  ERROR = 3,
-}
+import winston from 'winston';
 
-export interface LoggerConfig {
-  level: LogLevel;
-  timestamp: boolean;
-  prefix: string;
-}
+const logFormat = winston.format.combine(winston.format.errors({ stack: true }), winston.format.json());
 
-export class Logger {
-  private static config: LoggerConfig = {
-    level: process.env.NODE_ENV === 'development' ? LogLevel.DEBUG : LogLevel.INFO,
-    timestamp: false, // MCP servers typically don't use timestamps in stdio
-    prefix: 'Selenium-MCP',
-  };
+const consoleFormat = winston.format.combine(winston.format.colorize(), winston.format.simple());
 
-  static configure(config: Partial<LoggerConfig>): void {
-    this.config = { ...this.config, ...config };
-  }
+export const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || 'info',
+  format: logFormat,
+  transports: [
+    new winston.transports.Console({
+      format: process.env.NODE_ENV === 'production' ? logFormat : consoleFormat,
+    }),
+    // Add file transport for production
+    ...(process.env.NODE_ENV === 'production'
+      ? [
+          new winston.transports.File({
+            filename: 'logs/error.log',
+            level: 'error',
+          }),
+          new winston.transports.File({
+            filename: 'logs/combined.log',
+          }),
+        ]
+      : []),
+  ],
+  // Prevent exit on error
+  exitOnError: false,
+});
 
-  private static formatMessage(level: LogLevel, message: string): string {
-    const timestamp = this.config.timestamp ? `${new Date().toISOString()} ` : '';
-    const levelStr = LogLevel[level];
-    const prefix = this.config.prefix ? `[${this.config.prefix}] ` : '';
+// Handle logger errors
+logger.on('error', error => {
+  console.error('Logger error:', error);
+});
 
-    return `${timestamp}${prefix}[${levelStr}] ${message}`;
-  }
-
-  private static shouldLog(level: LogLevel): boolean {
-    return level >= this.config.level;
-  }
-
-  static debug(message: string, ...args: unknown[]): void {
-    if (this.shouldLog(LogLevel.DEBUG)) {
-      console.log(this.formatMessage(LogLevel.DEBUG, message), ...args);
-    }
-  }
-
-  static info(message: string, ...args: unknown[]): void {
-    if (this.shouldLog(LogLevel.INFO)) {
-      console.log(this.formatMessage(LogLevel.INFO, message), ...args);
-    }
-  }
-
-  static warn(message: string, ...args: unknown[]): void {
-    if (this.shouldLog(LogLevel.WARN)) {
-      console.warn(this.formatMessage(LogLevel.WARN, message), ...args);
-    }
-  }
-
-  static error(message: string, ...args: unknown[]): void {
-    if (this.shouldLog(LogLevel.ERROR)) {
-      console.error(this.formatMessage(LogLevel.ERROR, message), ...args);
-    }
-  }
-}
+// Export for compatibility
+export { logger as Logger };

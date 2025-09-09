@@ -8,3 +8,4 @@ sessions/
 .mcpregistry*
 scripts/cleanup.js
 .github/workflows/*mcp.yml
+local-readme.md

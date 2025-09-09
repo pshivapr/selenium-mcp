@@ -10,7 +10,10 @@ COPY package.json package-lock.json ./
 # Install dependencies without running scripts to prevent automatic build
 RUN npm install --ignore-scripts
 
-# Copy the entire source directory
+# Run security audit
+RUN npm audit --audit-level=moderate
+
+# Copy the source directory and required files
 COPY src ./src
 COPY version.config.json ./
 COPY tsconfig.json ./

@@ -2,13 +2,7 @@
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { createSeleniumMcpServer } from './server.js';
-import { Logger, LogLevel } from './utils/logger.js';
-
-// Configure logger for MCP stdio transport
-Logger.configure({
-  level: process.env.DEBUG ? LogLevel.DEBUG : LogLevel.INFO,
-  timestamp: false, // MCP servers typically don't use timestamps
-});
+import { Logger } from './utils/logger.js';
 
 async function main() {
   try {

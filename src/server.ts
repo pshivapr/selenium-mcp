@@ -5,7 +5,7 @@ import { registerBrowserStatusResource } from './resources/browserStatus.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { Logger, LogLevel } from './utils/logger.js';
+import { Logger } from './utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,12 +18,6 @@ interface VersionConfig {
   version: string;
   displayName?: string;
 }
-
-// Configure logger based on environment
-Logger.configure({
-  level: process.env.LOG_LEVEL ? parseInt(process.env.LOG_LEVEL) : LogLevel.INFO,
-  timestamp: true,
-});
 
 // Load version config with proper error handling
 let versionConfig: VersionConfig;

@@ -1,6 +1,7 @@
 {
   "name": "selenium-webdriver-mcp",
-  "version": "0.3.7",
+  "version": "0.3.8",
+  "mcpName": "io.github.pshivapr/selenium-mcp",
   "description": "Selenium Tools for MCP",
   "type": "module",
   "bin": {

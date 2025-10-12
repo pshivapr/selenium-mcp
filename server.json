@@ -1,28 +1,27 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "io.github.pshivapr/selenium-mcp",
   "description": "Selenium Tools for MCP",
-  "status": "active",
   "repository": {
     "url": "https://github.com/pshivapr/selenium-mcp",
     "source": "github"
   },
-  "version": "0.4.2",
+  "version": "0.4.3",
   "packages": [
     {
-      "registry_type": "npm",
-      "registry_base_url": "https://registry.npmjs.org",
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "selenium-webdriver-mcp",
-      "version": "0.4.2",
+      "version": "0.4.3",
       "transport": {
         "type": "stdio"
       },
-      "environment_variables": [
+      "environmentVariables": [
         {
           "description": "Your API key for the service",
-          "is_required": false,
+          "isRequired": false,
           "format": "string",
-          "is_secret": true,
+          "isSecret": true,
           "name": "YOUR_API_KEY"
         }
       ]

@@ -9,3 +9,5 @@ sessions/
 scripts/cleanup.js
 .github/workflows/*mcp.yml
 local-readme.md
+logs/
+.smithery/

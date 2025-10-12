@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "ES2022",
+    "lib": ["ES2022"],
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -26,7 +27,7 @@
     "types": ["node"]
   },
   "include": ["src/**/*", "version.config.json"],
-  "exclude": ["node_modules", "dist", "coverage"],
+  "exclude": ["node_modules", "dist", "test", "coverage"],
   "ts-node": {
     "esm": true,
     "experimentalSpecifierResolution": "node",

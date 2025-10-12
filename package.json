@@ -1,11 +1,19 @@
 {
   "name": "selenium-webdriver-mcp",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "mcpName": "io.github.pshivapr/selenium-mcp",
   "description": "Selenium Tools for MCP",
   "type": "module",
   "bin": {
     "selenium-webdriver-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "files": [
     "dist/**/*",

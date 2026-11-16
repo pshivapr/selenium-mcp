@@ -13,7 +13,7 @@
 
 ![GitHub issues](https://img.shields.io/github/issues/pshivapr/selenium-mcp)
 
-[![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
+[![LightNow capabilities](https://lightnow.ai/badge/io.github.pshivapr/selenium-mcp)](https://lightnow.ai/servers/io.github.pshivapr/selenium-mcp)
 
 This is a server implementation that bridges the gap between MCP clients (AI assistants) and Selenium WebDriver. It exposes Selenium WebDriver's functionalities as MCP tools, allowing AI models to utilize them for tasks like:
 
@@ -126,7 +126,7 @@ npm install -g selenium-webdriver-mcp@latest
 
 Using [Smithery](https://smithery.ai/server/@pshivapr/selenium-mcp)
 
-To install Selenium MCP for Claude Desktop automatically via [![smithery badge](https://smithery.ai/badge/@pshivapr/selenium-mcp)](https://smithery.ai/server/@pshivapr/selenium-mcp)
+To install Selenium MCP for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@pshivapr/selenium-mcp)
 
 ```bash
 npx @smithery/cli install @pshivapr/selenium-mcp --client claude

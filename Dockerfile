@@ -11,7 +11,7 @@ COPY package.json package-lock.json ./
 RUN npm install --ignore-scripts
 
 # Run security audit
-RUN npm audit --audit-level=moderate
+RUN npm audit --omit=dev --audit-level=moderate
 
 # Copy the source directory and required files
 COPY src ./src

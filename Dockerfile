@@ -1,5 +1,5 @@
 # Use Node.js image for building the project
-FROM node:24-alpine AS builder
+FROM node:26.13.1-alpine AS builder
 
 # Set the working directory
 WORKDIR /app
@@ -22,7 +22,7 @@ COPY tsconfig.json ./
 RUN npm run build
 
 # Use a minimal Node.js image for running the project
-FROM node:24-alpine AS release
+FROM node:26.13.1-alpine AS release
 
 # Set the working directory
 WORKDIR /app
